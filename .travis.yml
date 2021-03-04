@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - oraclejdk13
+deploy:
+  provider: heroku
+  api-key: $HEROKU_API_KEY
+  app: sh0p1fy
+  on:
+    branch: main
