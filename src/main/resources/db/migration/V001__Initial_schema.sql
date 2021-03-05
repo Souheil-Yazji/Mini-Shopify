@@ -1,0 +1,1 @@
+CREATE SCHEMA IF NOT EXISTS migrations; -- Create tables in this schema
