@@ -15,22 +15,18 @@ create table migrations.user (
 );
 
 create table migrations.shop (
-  id BIGINT GENERATED ALWAYS AS IDENTITY,
-  owner_id BIGINT,
+  id BIGINT generated always as identity primary key,
+  owner_id BIGINT REFERENCES migrations.user(id),
   name text NOT NULL,
-  description TEXT,
-  PRIMARY KEY (id),
-  CONSTRAINT fd_owner_id
-    FOREIGN KEY (owner_id)
-      REFERENCES migrations.user(id)
+  description TEXT
 );
 
 create table migrations.product(
     id bigint generated always as identity primary key,
     shop_id BIGINT REFERENCES migrations.shop(id),
     name text not null,
-    price BIGINT not null,
-    quantity BIGINT not null,
+    price decimal not null,
+    quantity integer not null,
     image bytea not null
 );
 
