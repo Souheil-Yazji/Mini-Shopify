@@ -35,3 +35,9 @@ create table migrations.shop_category(
     category_id BIGINT REFERENCES migrations.category (id),
     CONSTRAINT shop_category_id PRIMARY KEY (shop_id, category_id)
 );
+
+create table migrations.shop_tag (
+    shop_id BIGINT REFERENCES migrations.shop (id),
+    tag_id BIGINT REFERENCES migrations.tag (id),
+    CONSTRAINT shop_tag_id PRIMARY KEY (shop_id,tag_id)
+);
