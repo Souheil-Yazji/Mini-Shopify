@@ -21,4 +21,4 @@ deploy:
   api-key: $HEROKU_API_KEY
   app: sh0p1fy
   on:
-    branch: main
+    branch: host-vue
