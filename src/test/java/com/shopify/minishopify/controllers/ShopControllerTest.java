@@ -4,15 +4,14 @@ import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.model.User;
 import com.shopify.minishopify.repository.ShopRepository;
 import org.json.JSONObject;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -25,9 +24,9 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ShopControllerTest {
 
     @Autowired
@@ -41,9 +40,9 @@ public class ShopControllerTest {
     private User shopOwner;
 
 
-    @Before
+    @BeforeAll
     public void initialize(){
-        shopOwner = new User("shop owner", "shopowner@email.com");;
+        shopOwner = new User("shop owner", "shopowner@email.com");
         shop1 = new Shop(shopOwner, "Shop1", "Shop1 description");
     }
 
