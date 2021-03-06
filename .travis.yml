@@ -1,7 +1,25 @@
 language: java
 jdk:
   - oraclejdk13
+before_install:
+  - nvm install $NODE_VERSION
+  - npm install -g yarn
+install:
+  - cd ./shopify-client
+  - yarn
+  - yarn run build
+  - mkdir ../src/main/resources/templates
+  - mkdir ../src/main/resources/public
+  - cp ./dist/index.html ../src/main/resources/templates/
+  - cp -R ./dist/css ../src/main/resources/public/
+  - cp -R ./dist/img ../src/main/resources/public/
+  - cp -R ./dist/js ../src/main/resources/public/
+  - cd ..
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script:
+  - mvn test -B
 deploy:
+  skip_cleanup: true
   provider: heroku
   api-key: $HEROKU_API_KEY
   app: sh0p1fy
