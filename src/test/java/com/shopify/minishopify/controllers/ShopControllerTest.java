@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,9 +35,6 @@ public class ShopControllerTest {
 
     @MockBean
     private ShopRepository shopRepository;
-
-    @InjectMocks
-    private ShopController shopController;
 
     // test objects
     private Shop shop1;
