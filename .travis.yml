@@ -19,7 +19,8 @@ install:
 script:
   - mvn test -B
 before_deploy:
-  - ls ./src/main/resources/public
+  - ls ./src/main/resources/public/css
+  - ls ./src/main/resources/templates
 deploy:
   provider: heroku
   api-key: $HEROKU_TEST
