@@ -18,7 +18,7 @@ script:
   - mvn test -B
 deploy:
   provider: heroku
-  api-key: $HEROKU_API_KEY
+  api-key: $HEROKU_TEST
   app: sh0p1fy
   on:
     branch: host-vue
