@@ -6,6 +6,7 @@ before_install:
   - npm install -g yarn
 install:
   - cd ./shopify-client
+  - yarn 
   - yarn run build
   - cp ./dist/index.html ../src/main/resources/templates
   - cp ./dist/css ../src/main/resources/public
