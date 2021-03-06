@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +40,13 @@ public class ShopController {
     }
 
     @PostMapping("/create")
-    public Shop createShop(@RequestBody Shop shop) {
+    public Shop createShop(@Valid @RequestBody Shop shop) {
 
         return shopRepository.save(shop);
     }
 
     @PutMapping("/update/{id}")
-    public Shop updateShop(@RequestBody Shop updatedShop, @PathVariable int id) {
+    public Shop updateShop(@Valid @RequestBody Shop updatedShop, @PathVariable int id) {
 
         Optional<Shop> shopQuery = shopRepository.findById(id);
 

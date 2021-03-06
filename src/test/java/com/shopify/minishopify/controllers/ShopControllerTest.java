@@ -38,12 +38,24 @@ public class ShopControllerTest {
     // test objects
     private Shop shop1;
     private User shopOwner;
+    private JSONObject ownerJsonBody;
+    private JSONObject shopJsonBody;
 
 
     @BeforeAll
-    public void initialize(){
+    public void initialize() throws Exception {
         shopOwner = new User("shop owner", "shopowner@email.com");
         shop1 = new Shop(shopOwner, "Shop1", "Shop1 description");
+
+        ownerJsonBody = new JSONObject();
+        ownerJsonBody.put("id", shopOwner.getId());
+        ownerJsonBody.put("name", shopOwner.getName());
+        ownerJsonBody.put("email", shopOwner.getEmail());
+
+        shopJsonBody = new JSONObject();
+        shopJsonBody.put("owner", ownerJsonBody);
+        shopJsonBody.put("name", shop1.getName());
+        shopJsonBody.put("description", shop1.getDescription());
     }
 
     @Test
@@ -79,18 +91,13 @@ public class ShopControllerTest {
     @Test
     public void whenUpdateExistingShop_thenReturnOk() throws Exception {
 
-        // create request body
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("name", shop1.getName());
-        requestBody.put("description", shop1.getDescription());
-
         // mock repository behaviour
         when(shopRepository.findById(2)).thenReturn(Optional.of(shop1));
         when(shopRepository.save(any())).thenReturn(shop1);
 
         mvc.perform(put("/shops/update/2")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody.toString()))
+                        .content(shopJsonBody.toString()))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -99,14 +106,9 @@ public class ShopControllerTest {
     @Test
     public void whenUpdateNonExistingShop_thenReturnNotFound() throws Exception {
 
-        // create request body
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("name", shop1.getName());
-        requestBody.put("description", shop1.getDescription());
-
         mvc.perform(put("/shops/update/2")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody.toString()))
+                .content(shopJsonBody.toString()))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -114,20 +116,58 @@ public class ShopControllerTest {
     @Test
     public void whenCreateNewShop_thenReturnShop() throws Exception {
 
-        // create request body
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("name", shop1.getName());
-        requestBody.put("description", shop1.getDescription());
-
         when(shopRepository.save(any())).thenReturn(shop1);
 
         mvc.perform(post("/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(requestBody.toString()))
+                .content(shopJsonBody.toString()))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(shop1.getName()))
                 .andExpect(jsonPath("$.description").value(shop1.getDescription()));
+    }
+
+    @Test
+    public void whenCreateInvalidShop_thenReturnValidationFailure() throws Exception {
+
+        // create a request body with missing user
+        JSONObject requestBodyMissingUser = new JSONObject();
+        requestBodyMissingUser.put("name", shop1.getName());
+        requestBodyMissingUser.put("description", shop1.getDescription());
+
+        when(shopRepository.save(any())).thenReturn(shop1);
+
+        mvc.perform(post("/shops/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyMissingUser.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+        // create a request body with missing user
+        JSONObject requestBodyMissingName = new JSONObject();
+        requestBodyMissingName.put("owner", ownerJsonBody);
+        requestBodyMissingName.put("description", shop1.getDescription());
+
+        when(shopRepository.save(any())).thenReturn(shop1);
+
+        mvc.perform(post("/shops/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyMissingName.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+        // create a request body with missing user
+        JSONObject requestBodyMissingDescription = new JSONObject();
+        requestBodyMissingDescription.put("name", shop1.getName());
+        requestBodyMissingDescription.put("owner", ownerJsonBody);
+
+        when(shopRepository.save(any())).thenReturn(shop1);
+
+        mvc.perform(post("/shops/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyMissingDescription.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
     }
 }

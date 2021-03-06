@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +50,15 @@ public class Shop {
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @NotNull(message = "Shop must contain an owner")
     private User owner;
 
     @Column(name = "name")
+    @NotEmpty(message = "Shop needs a name")
     private String name;
 
     @Column(name = "description")
+    @NotEmpty(message = "Shop needs a description")
     private String description;
 
     public Shop() {
