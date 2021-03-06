@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import java.util.Arrays;
@@ -21,15 +20,20 @@ public class Product {
     @GeneratedValue
     @Column(name = "id")
     private int id;
+
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "shop_id", referencedColumnName = "id")
     private Shop shop;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "price")
     private float price;
+
     @Column(name = "quantity")
     private int quantity;
+
     @Column(name = "image")
     private byte[] image;
 

@@ -45,11 +45,14 @@ public class Shop {
     @GeneratedValue
     @Column(name = "id")
     private int id;
+
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "description")
     private String description;
 

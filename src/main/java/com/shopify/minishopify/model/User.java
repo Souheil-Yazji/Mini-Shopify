@@ -15,8 +15,10 @@ public class User {
     @GeneratedValue
     @Column(name = "id")
     private int id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
 
