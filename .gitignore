@@ -21,6 +21,7 @@ target/
 
 ### NetBeans ###
 public/
+templates/
 nbproject/private/
 nbbuild/
 dist/
