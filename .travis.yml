@@ -8,6 +8,7 @@ install:
   - cd ./shopify-client
   - yarn
   - yarn run build
+  - mkdir ../src/main/resources/templates
   - mkdir ../src/main/resources/public
   - cp ./dist/index.html ../src/main/resources/templates/
   - cp -R ./dist/css ../src/main/resources/public/
