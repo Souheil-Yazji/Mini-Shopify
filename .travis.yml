@@ -1,6 +1,16 @@
 language: java
 jdk:
   - oraclejdk13
+before_install:
+  - nvm install $NODE_VERSION
+  - npm install -g yarn
+install:
+  - cd ./shopify-client
+  - yarn run build
+  - cp ./dist/index.html ../src/main/resources/templates
+  - cp ./dist/css ../src/main/resources/public
+  - cp ./dist/img ../src/main/resources/public
+  - cp ./dist/js ../src/main/resources/public
 deploy:
   provider: heroku
   api-key: $HEROKU_API_KEY
