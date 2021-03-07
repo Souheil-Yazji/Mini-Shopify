@@ -1,5 +1,7 @@
 package com.shopify.minishopify.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,6 +43,7 @@ public class Shop {
     private final List<Category> categories;
 
     @OneToMany(cascade = ALL, mappedBy = "shop")
+    @JsonManagedReference
     private final List<Product> products;
 
     @Id
