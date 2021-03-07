@@ -12,7 +12,7 @@
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="package" />
     <envs>
-      <env name="DB_HOST" value="localhost" />
+      <env name="DB_HOST" value="192.168.99.100" />
       <env name="DB_PORT" value="5432" />
       <env name="DB_NAME" value="shopify" />
       <env name="DB_USER" value="postgres" />
