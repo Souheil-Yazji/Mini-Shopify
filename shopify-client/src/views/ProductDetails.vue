@@ -1,20 +1,18 @@
 <template>
   <div>
     <p v-if="error">{{ error }}</p>
-    <div v-if="product">
+    <div v-if="product" class="text-center">
       <b-container>
         <b-row>
           <b-col sm="6">
             <b-row>
-              <b-col sm="12" class="text-right">
-                <b-img
-                  v-bind:src="'data:image/png;base64,' + product.image"
-                ></b-img>
+              <b-col sm="12">
+                <b-img v-bind:src="product.image"></b-img>
               </b-col>
             </b-row>
           </b-col>
           <b-col sm="6">
-            <b-row class="text-center">
+            <b-row class="text-left">
               <b-col sm="12">
                 <h1>{{ product.name }}</h1>
               </b-col>
@@ -22,10 +20,15 @@
                 <p>{{ product.description }}</p>
               </b-col>
               <b-col sm="12">
+                <p>Price: {{ product.price }}</p>
+              </b-col>
+              <b-col sm="12">
                 <p>Quantity: {{ product.quantity }}</p>
               </b-col>
               <b-col sm="12">
-                <p>Price: {{ product.price }}</p>
+                <b-button v-bind:to="'/app/products/update/' + id"
+                  >Update</b-button
+                >
               </b-col>
             </b-row>
           </b-col>

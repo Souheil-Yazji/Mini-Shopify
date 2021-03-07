@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 
 import ProductDetails from "../views/ProductDetails.vue";
+import ProductCreate from "../views/ProductCreate.vue";
+import ProductUpdate from "../views/ProductUpdate";
 
 Vue.use(VueRouter);
 
@@ -16,6 +18,18 @@ const routes = [
     path: "/app/products/:id",
     name: "ProductDetails",
     component: ProductDetails,
+    props: true,
+  },
+  {
+    path: "/app/shop/:shopId/products/create",
+    name: "ProductCreate",
+    component: ProductCreate,
+    props: true,
+  },
+  {
+    path: "/app/products/update/:id",
+    name: "ProductUpdate",
+    component: ProductUpdate,
     props: true,
   },
   {

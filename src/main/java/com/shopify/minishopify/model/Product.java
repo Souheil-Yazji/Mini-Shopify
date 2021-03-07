@@ -48,7 +48,7 @@ public class Product {
     private Integer quantity;
 
     @Column(name = "image")
-    @NotNull(message = "Product must have an image")
+    @NotEmpty(message = "Product must have an image")
     private String image;
 
     public Product() {
