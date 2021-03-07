@@ -10,6 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +50,20 @@ public class Shop {
 
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @NotNull(message = "Shop must contain an owner")
     private User owner;
 
     @Column(name = "name")
+    @NotEmpty(message = "Shop needs a name")
     private String name;
 
     @Column(name = "description")
+    @NotEmpty(message = "Shop needs a description")
     private String description;
+
+    @Column(name = "image")
+    @NotNull(message = "Shop needs an image")
+    private String image;
 
     public Shop() {
         categories = new ArrayList<>();
@@ -70,10 +79,11 @@ public class Shop {
         products = new ArrayList<>();
     }
 
-    public Shop(User owner, String name, String description) {
+    public Shop(User owner, String name, String description, String image) {
         this.owner = owner;
         this.name = name;
         this.description = description;
+        this.image = image;
         categories = new ArrayList<>();
         tags = new ArrayList<>();
         products = new ArrayList<>();
@@ -113,6 +123,14 @@ public class Shop {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void addProduct(Product product) {
