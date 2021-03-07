@@ -4,6 +4,7 @@ import com.shopify.minishopify.model.Product;
 import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,13 +19,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
+    @Autowired
     private ProductRepository productRepository;
-    private ShopRepository shopRepository;
 
-    public ProductController(ProductRepository productRepository, ShopRepository shopRepository) {
-        this.productRepository = productRepository;
-        this.shopRepository = shopRepository;
-    }
+    @Autowired
+    private ShopRepository shopRepository;
 
     @GetMapping("/shop/{id}/products")
     public Iterable<Product> getAllProducts(@PathVariable int id) {
