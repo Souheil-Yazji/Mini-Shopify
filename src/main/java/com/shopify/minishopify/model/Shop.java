@@ -62,6 +62,7 @@ public class Shop {
     private String description;
 
     @Column(name = "image")
+    @NotNull(message = "Shop needs an image")
     private String image;
 
     public Shop() {

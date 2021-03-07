@@ -56,6 +56,7 @@ public class ShopControllerTest {
         shopJsonBody.put("owner", ownerJsonBody);
         shopJsonBody.put("name", shop1.getName());
         shopJsonBody.put("description", shop1.getDescription());
+        shopJsonBody.put("image", shop1.getImage());
     }
 
     @Test
@@ -134,13 +135,11 @@ public class ShopControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
 
-        // create a request body with missing user
+        // create a request body with missing name
         JSONObject requestBodyMissingName = new JSONObject();
         requestBodyMissingName.put("owner", ownerJsonBody);
         requestBodyMissingName.put("description", shop1.getDescription());
         requestBodyMissingName.put("image", shop1.getImage());
-
-        when(shopRepository.save(any())).thenReturn(shop1);
 
         mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -148,17 +147,27 @@ public class ShopControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
 
-        // create a request body with missing user
+        // create a request body with missing description
         JSONObject requestBodyMissingDescription = new JSONObject();
         requestBodyMissingDescription.put("name", shop1.getName());
         requestBodyMissingDescription.put("owner", ownerJsonBody);
         requestBodyMissingDescription.put("image", shop1.getImage());
 
-        when(shopRepository.save(any())).thenReturn(shop1);
-
         mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyMissingDescription.toString()))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
+        // create a request body with missing description
+        JSONObject requestBodyMissingImage = new JSONObject();
+        requestBodyMissingImage.put("name", shop1.getName());
+        requestBodyMissingImage.put("owner", ownerJsonBody);
+        requestBodyMissingImage.put("description", shop1.getDescription());
+
+        mvc.perform(post("/api/shops/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyMissingImage.toString()))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

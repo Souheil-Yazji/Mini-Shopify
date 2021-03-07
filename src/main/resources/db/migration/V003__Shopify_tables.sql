@@ -1,2 +1,2 @@
 alter table migrations.shop
-add image text;
+add image text not null;
