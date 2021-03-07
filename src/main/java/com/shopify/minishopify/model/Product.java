@@ -33,6 +33,10 @@ public class Product {
     @NotEmpty(message = "Product must have a name")
     private String name;
 
+    @Column(name = "description")
+    @NotEmpty(message =  "Product must have a description")
+    private String description;
+
     @Column(name = "price")
     @NotNull(message = "Product must have a price")
     @Positive(message = "Price should be greater than 0")
@@ -50,14 +54,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, float price, int quantity) {
+    public Product(String name, String description, float price, int quantity) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public Product(String name, float price, int quantity, String image) {
+    public Product(String name, String description, float price, int quantity, String image) {
         this.name = name;
+        this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.image = image;
@@ -81,6 +87,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public float getPrice() {

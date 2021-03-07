@@ -47,11 +47,12 @@ public class ProductControllerTest {
     @BeforeAll
     public void initialize() throws JSONException {
         shop = new Shop();
-        product = new Product("product", 1.0f, 1, "image");
+        product = new Product("product", "description", 1.0f, 1, "image");
         product.setShop(shop);
 
         productJsonBody = new JSONObject();
         productJsonBody.put("name", product.getName());
+        productJsonBody.put("description", product.getDescription());
         productJsonBody.put("quantity", product.getQuantity());
         productJsonBody.put("price", product.getPrice());
         productJsonBody.put("image", product.getImage());
