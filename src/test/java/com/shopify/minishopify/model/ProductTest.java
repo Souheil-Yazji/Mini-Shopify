@@ -43,7 +43,7 @@ public class ProductTest {
     public void testPersistence() {
         User testUser = new User("TEST_USER", "JUNIT");
         Shop testShop = new Shop(testUser, "TEST_SHOP", "JUnit Test Shop");
-        Product product = new Product("TEST_PRODUCT", "Description", 1.0f, 1);
+        Product product = new Product("TEST_PRODUCT", "Description", 1.0f, 1, "image");
         testShop.addProduct(product);
 
         productRepository.save(product);
