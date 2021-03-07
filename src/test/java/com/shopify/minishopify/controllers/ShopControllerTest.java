@@ -45,7 +45,7 @@ public class ShopControllerTest {
     @BeforeAll
     public void initialize() throws Exception {
         shopOwner = new User("shop owner", "shopowner@email.com");
-        shop1 = new Shop(shopOwner, "Shop1", "Shop1 description");
+        shop1 = new Shop(shopOwner, "Shop1", "Shop1 description", "image");
 
         ownerJsonBody = new JSONObject();
         ownerJsonBody.put("id", shopOwner.getId());
@@ -63,7 +63,7 @@ public class ShopControllerTest {
 
         when(shopRepository.findById(shop1.getId())).thenReturn(Optional.of(shop1));
 
-        mvc.perform(get("/shops/" + shop1.getId()))
+        mvc.perform(get("/api/shops/" + shop1.getId()))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
@@ -72,20 +72,9 @@ public class ShopControllerTest {
     @Test
     public void whenFindNonExistingShopById_thenReturnNotFound() throws Exception {
 
-        mvc.perform(get("/shops/2"))
+        mvc.perform(get("/api/shops/2"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void whenUpdateExistingShop_thenReturnNewShop() throws Exception {
-
-        when(shopRepository.findById(shop1.getId())).thenReturn(Optional.of(shop1));
-
-        mvc.perform(get("/shops/" + shop1.getId()))
-                .andDo(print())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
     }
 
     @Test
@@ -95,7 +84,7 @@ public class ShopControllerTest {
         when(shopRepository.findById(2)).thenReturn(Optional.of(shop1));
         when(shopRepository.save(any())).thenReturn(shop1);
 
-        mvc.perform(put("/shops/update/2")
+        mvc.perform(put("/api/shops/update/2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(shopJsonBody.toString()))
                 .andDo(print())
@@ -106,7 +95,7 @@ public class ShopControllerTest {
     @Test
     public void whenUpdateNonExistingShop_thenReturnNotFound() throws Exception {
 
-        mvc.perform(put("/shops/update/2")
+        mvc.perform(put("/api/shops/update/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(shopJsonBody.toString()))
                 .andDo(print())
@@ -118,7 +107,7 @@ public class ShopControllerTest {
 
         when(shopRepository.save(any())).thenReturn(shop1);
 
-        mvc.perform(post("/shops/create")
+        mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(shopJsonBody.toString()))
                 .andDo(print())
@@ -135,10 +124,11 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingUser = new JSONObject();
         requestBodyMissingUser.put("name", shop1.getName());
         requestBodyMissingUser.put("description", shop1.getDescription());
+        requestBodyMissingUser.put("image", shop1.getImage());
 
         when(shopRepository.save(any())).thenReturn(shop1);
 
-        mvc.perform(post("/shops/create")
+        mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyMissingUser.toString()))
                 .andDo(print())
@@ -148,10 +138,11 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingName = new JSONObject();
         requestBodyMissingName.put("owner", ownerJsonBody);
         requestBodyMissingName.put("description", shop1.getDescription());
+        requestBodyMissingName.put("image", shop1.getImage());
 
         when(shopRepository.save(any())).thenReturn(shop1);
 
-        mvc.perform(post("/shops/create")
+        mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyMissingName.toString()))
                 .andDo(print())
@@ -161,10 +152,11 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingDescription = new JSONObject();
         requestBodyMissingDescription.put("name", shop1.getName());
         requestBodyMissingDescription.put("owner", ownerJsonBody);
+        requestBodyMissingDescription.put("image", shop1.getImage());
 
         when(shopRepository.save(any())).thenReturn(shop1);
 
-        mvc.perform(post("/shops/create")
+        mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyMissingDescription.toString()))
                 .andDo(print())

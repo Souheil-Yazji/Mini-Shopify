@@ -61,6 +61,9 @@ public class Shop {
     @NotEmpty(message = "Shop needs a description")
     private String description;
 
+    @Column(name = "image")
+    private String image;
+
     public Shop() {
         categories = new ArrayList<>();
         tags = new ArrayList<>();
@@ -75,10 +78,11 @@ public class Shop {
         products = new ArrayList<>();
     }
 
-    public Shop(User owner, String name, String description) {
+    public Shop(User owner, String name, String description, String image) {
         this.owner = owner;
         this.name = name;
         this.description = description;
+        this.image = image;
         categories = new ArrayList<>();
         tags = new ArrayList<>();
         products = new ArrayList<>();
@@ -118,6 +122,14 @@ public class Shop {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void addProduct(Product product) {
