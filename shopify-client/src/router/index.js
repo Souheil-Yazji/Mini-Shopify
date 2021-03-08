@@ -5,6 +5,7 @@ import Home from "../views/Home.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import ProductCreate from "../views/ProductCreate.vue";
 import ProductUpdate from "../views/ProductUpdate";
+import ShopList from "../views/ShopList.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,12 @@ const routes = [
     path: "/app/products/update/:id",
     name: "ProductUpdate",
     component: ProductUpdate,
+    props: true,
+  },
+  {
+    path: '/app/shops/shopList',
+    name: 'ShopList',
+    component: ShopList,
     props: true,
   },
   {

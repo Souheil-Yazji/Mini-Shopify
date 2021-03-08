@@ -175,4 +175,25 @@ public class ShopControllerTest {
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void whenSearchingShops_thenReturnOk() throws Exception{
+        //Nonexistent
+        mvc.perform(get("/api/shops/shopList?keyword=Shop2"))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        //Existing
+        mvc.perform(get("/api/shops/shopList?keyword=" + shop1.getName()))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+
+        //No keyword
+        mvc.perform(get("/api/shops/shopList"))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
+    }
 }
