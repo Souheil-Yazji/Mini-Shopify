@@ -1,5 +1,11 @@
 <template>
   <div class="shopList">
+    <div
+        v-if="error.length > 0"
+        class="alert alert-danger"
+        role="alert">
+      {{error}}
+    </div>
     <h1>Shop List</h1> <!--Temp header-->
     <div id="filters">
       <div class="filterTile">
@@ -10,12 +16,12 @@
         <div
             v-else
             v-for="category in categories"
-            :key="category.id"
+            v-bind:key="'category' + category.id"
         >
           <label :for="category.name">{{category.name}}</label>
           <input
               type="checkbox"
-              :id="category.name"
+              v-bind:id="'category' + category.id"
               class="checkBox"
           >
         </div>
@@ -28,12 +34,12 @@
         <div
             v-else
             v-for="tag in tags"
-            :key="tag.id"
+            v-bind:key="'tag' + tag.id"
         >
           <label :for="tag.name">{{tag.name}}</label>
           <input
               type="checkbox"
-              :id="tag.name"
+              v-bind:id="'tag' + tag.id"
               class="checkBox"
           >
         </div>
@@ -47,37 +53,37 @@
     </div>
     <div id="filteredList">
       <h4 id="searchKeyword">Search keyword: "{{keyword}}"</h4>
-      <div v-if="shops.length < 1">
+      <div v-if="filteredShops.length < 1">
         No results found
       </div>
       <div
           v-else
-          v-for="shop in shops"
-          :key="shop.id"
-          class="shopTile"
+          v-for="shop in filteredShops"
+          v-bind:key="'shop' + shop.id"
+          class="shopTile card"
       >
-        <img :src="'/' + shop.image"/> <!--Update when root image location is known -->
-        <h3>
-          <a :href="'/shop/' + shop.id">
-            {{shop.name.toLocaleUpperCase()}}
-          </a>
-        </h3>
-        <p>
-          {{shop.description}}
-        </p>
-        <div
-            v-for="category in shop.categories"
-            :key="category.id"
-            :class="'shopAttribute shopCategory ' + category.name"
-        >
-          {{category.name}}
-        </div>
-        <div
-            v-for="tag in shop.tags"
-            :key="tag.id"
-            :class="'shopAttribute shopTag ' + tag.name"
-        >
-          {{tag.name}}
+        <img class="card-img-top" v-bind:src="'/' + shop.image"/> <!--Update when root image location is known -->
+        <div class="card-body">
+          <h5 class="card-title">
+            <a v-bind:href="'/shop/' + shop.id">
+              {{shop.name}}
+            </a>
+          </h5>
+          <p class="card-text">{{shop.description}}</p>
+          <div
+              v-for="category in shop.categories"
+              v-bind:key="'shop' + shop.id + '_category' + category.id"
+              v-bind:class="'shopAttribute shopCategory ' + category.name"
+          >
+            {{category.name}}
+          </div>
+          <div
+              v-for="tag in shop.tags"
+              v-bind:key="'shop' + shop.id + '_tag' + tag.id"
+              v-bind:class="'shopAttribute shopTag ' + tag.name"
+          >
+            {{tag.name}}
+          </div>
         </div>
       </div>
     </div>
@@ -85,9 +91,6 @@
 </template>
 
 <script>
-//Placeholders
-//import header from '@/components/header.vue'
-//import footer from '@/components/footer.vue'
 
 let addDiff = (newAttributes, target) =>
     newAttributes.forEach(function (attribute){
@@ -96,18 +99,36 @@ let addDiff = (newAttributes, target) =>
       }
     });
 
-//checker if the shop has the selected tag and categories
-let checker = (shop, target) =>
-    target.every(attribute => shop.getElementsByClassName(attribute).length > 0);
+let categoryChecker = (shopCategories, attrId) =>
+    shopCategories.some(category =>
+        category.id == parseInt(attrId));
+
+let tagChecker = (shopTags, attrId) =>
+    shopTags.some(tag =>
+        tag.id === parseInt(attrId))
+
+let attributeFilter = (shops, selectedAttributes) =>
+    shops.filter(shop =>
+        selectedAttributes.every(attribute => {
+          if(attribute.includes('tag')){
+            return tagChecker(shop.tags, attribute.substring(3));
+          }
+          else if(attribute.includes('category')){
+            return categoryChecker(shop.categories, attribute.substring(8));
+          }
+          return false;
+        }));
 
 export default {
-  name: "stopList",
+  name: "shopList",
   data(){
     return{
       shops:[],
+      filteredShops:[],
       categories: [],
       tags: [],
       keyword: '',
+      error: '',
     }
   },
   created: function(){
@@ -118,7 +139,7 @@ export default {
       vm.keyword = ''
     }
 
-    fetch('/api/shops/shopList?keyword=' + vm.keyword)
+    fetch('/api/shops/list?keyword=' + vm.keyword)
         .then((response) => response.json())
         .then((response) => {
           if (response.status == 404) {
@@ -128,6 +149,7 @@ export default {
         })
         .then((data) => {
           vm.shops = data;
+          vm.filteredShops = data;
 
           data.forEach(function(shop){
             addDiff(shop.categories, vm.categories);
@@ -139,35 +161,19 @@ export default {
         });
   },
   methods: {
-    filterSearch: function(event){
-      if(event.target.tagName == 'INPUT'){
-        let checkedBoxes = [];
-        let boxes = document.getElementsByClassName("checkBox");
-        let shops = document.getElementsByClassName("shopTile")
+    filterSearch: function(){
+      const vm = this;
+      let checkedBoxes = [];
+      let boxes = document.getElementsByClassName("checkBox");
 
-        //Obtain checked boxes
-        boxes.forEach(function(box){
-          if(box.checked){
-            checkedBoxes.push(box.id) //box's id is the name of the tag/category
-          }
-        });
+      //Obtain checked boxes
+      boxes.forEach(function(box){
+        if(box.checked){
+          checkedBoxes.push(box.id) //box's id is tag/category + id
+        }
+      });
 
-        if(checkedBoxes.length > 0){
-          shops.forEach(function(shop){
-            if(checker(shop, checkedBoxes)){
-              shop.style.display = "inline-block";
-            }
-            else{
-              shop.style.display = "none";
-            }
-          });
-        }
-        else{ //no selection
-          shops.forEach(function(shop){
-            shop.style.display = "inline-block"
-          });
-        }
-      }
+      vm.filteredShops = attributeFilter(vm.shops, checkedBoxes)
     }
   },
 }
@@ -176,10 +182,6 @@ export default {
 <style scoped>
 h1{
   margin-left: 10px;
-}
-
-h4{
-  margin-top: 0;
 }
 
 input{
@@ -233,29 +235,11 @@ input{
   background: azure;
 }
 
-.shopTile{
-  border: 1px solid #d6d6de;
+.card{
   height: 300px;
   width: 300px;
   display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
-  padding: 10px;
   margin: 5px;
-  text-align: center;
+  vertical-align: top;
 }
-
-.shopTile h3{
-  margin: 10px 0;
-}
-
-.shopTile img{
-  width: 150px;
-  height: 150px;
-}
-
-.shopTile p{
-  margin: 10px;
-}
-
 </style>

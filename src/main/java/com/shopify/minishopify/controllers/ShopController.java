@@ -62,7 +62,7 @@ public class ShopController {
         }
     }
 
-    @GetMapping("/shopList")
+    @GetMapping("/list")
     public List storeList(@RequestParam(name = "keyword", required = false) String keyword){
         if(keyword != null){
             if(!keyword.equals("")) {

@@ -179,19 +179,19 @@ public class ShopControllerTest {
     @Test
     public void whenSearchingShops_thenReturnOk() throws Exception{
         //Nonexistent
-        mvc.perform(get("/api/shops/shopList?keyword=Shop2"))
+        mvc.perform(get("/api/shops/list?keyword=Shop2"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
         //Existing
-        mvc.perform(get("/api/shops/shopList?keyword=" + shop1.getName()))
+        mvc.perform(get("/api/shops/list?keyword=" + shop1.getName()))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
         //No keyword
-        mvc.perform(get("/api/shops/shopList"))
+        mvc.perform(get("/api/list"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());

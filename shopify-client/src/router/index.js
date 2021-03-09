@@ -34,10 +34,9 @@ const routes = [
     props: true,
   },
   {
-    path: '/app/shops/shopList',
+    path: '/app/shops/list',
     name: 'ShopList',
     component: ShopList,
-    props: true,
   },
   {
     path: "/app/about",
