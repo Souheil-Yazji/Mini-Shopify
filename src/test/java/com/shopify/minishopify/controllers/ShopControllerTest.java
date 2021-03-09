@@ -191,7 +191,7 @@ public class ShopControllerTest {
                 .andExpect(status().isOk());
 
         //No keyword
-        mvc.perform(get("/api/list"))
+        mvc.perform(get("/api/shops/list"))
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
