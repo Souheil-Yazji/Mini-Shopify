@@ -9,6 +9,9 @@ import ShopList from "../views/ShopList.vue";
 
 import ShopDetails from "../views/ShopDetails.vue";
 
+import ShopCreate from "../views/ShopCreate.vue";
+import ShopUpdate from "../views/ShopUpdate.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,6 +36,17 @@ const routes = [
     path: "/app/products/update/:id",
     name: "ProductUpdate",
     component: ProductUpdate,
+    props: true,
+  },
+  {
+    path: "/app/shops/create",
+    name: "ShopCreate",
+    component: ShopCreate,
+  },
+  {
+    path: "/app/shops/:shopId/update",
+    name: "ShopUpdate",
+    component: ShopUpdate,
     props: true,
   },
   {

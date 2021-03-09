@@ -13,6 +13,11 @@
                                 <h4>{{ shop.description }}</h4>
                             </b-col>
                             <b-col sm="12">
+                                <b-button v-on:click="updateShop()" variant="primary">
+                                    Update Shop
+                                </b-button>
+                            </b-col>
+                            <b-col sm="12">
                                 <b-button v-on:click="scrollToProductCatalog({behavior: 'smooth'})" variant="primary">
                                     Browse Products
                                 </b-button>
@@ -74,6 +79,10 @@
                 if (el) {
                     el.scrollIntoView(options);
                 }
+            },
+            updateShop() {
+                // Redirect to Update Store Page
+                this.$router.push(`/app/shops/${this.id}/update`);
             }
         },
         props: ["id"],

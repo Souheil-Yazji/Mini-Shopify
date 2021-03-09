@@ -2,6 +2,8 @@ package com.shopify.minishopify.controllers;
 
 import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.repository.ShopRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/shops")
 public class ShopController {
+    private static final Logger LOG = LoggerFactory.getLogger(ShopController.class);
 
     @Autowired
     private ShopRepository shopRepository;
@@ -41,7 +44,7 @@ public class ShopController {
 
     @PostMapping("/create")
     public Shop createShop(@Valid @RequestBody Shop shop) {
-
+        LOG.info("Created Shop {} for User {}", shop.getName(), shop.getOwner().getName());
         return shopRepository.save(shop);
     }
 
@@ -53,9 +56,10 @@ public class ShopController {
         if (shopQuery.isPresent()) {
 
             Shop shop = shopQuery.get();
-
             shop.setName(updatedShop.getName());
             shop.setDescription(updatedShop.getDescription());
+
+            LOG.info("Updated Shop id:{} for User {}", shop.getId(), shop.getOwner().getName());
             return shopRepository.save(shop);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No shop found with id: %d", id));
