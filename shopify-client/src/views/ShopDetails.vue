@@ -2,31 +2,31 @@
     <div>
         <p v-if="error">{{ error }}</p>
         <div v-if="shop">
-            <div id="shop-intro-wrapper">
-                <b-container id="shop-intro">
-                    <b-row>
+            <div id="shop-details-wrapper">
+                <b-container id="shop-details">
+                    <b-row class="text-left">
                         <b-col sm="6">
-                            <b-row>
+                            <b-col sm="12">
                                 <h1>{{ shop.name }}</h1>
-                            </b-row>
-                            <b-row>
+                            </b-col>
+                            <b-col sm="12">
                                 <h4>{{ shop.description }}</h4>
-                            </b-row>
-                            <b-row>
-                                <b-button v-on:click="scrollToProductCatalog({behavior: 'smooth'})">
+                            </b-col>
+                            <b-col sm="12">
+                                <b-button v-on:click="scrollToProductCatalog({behavior: 'smooth'})" variant="primary">
                                     Browse Products
                                 </b-button>
-                            </b-row>
+                            </b-col>
                         </b-col>
                         <b-col sm="6">
                             <b-col sm="12">
-                                <b-img v-bind:src="shop.image"></b-img>
+                                <b-img id="shop-image" v-bind:src="shop.image"></b-img>
                             </b-col>
                         </b-col>
                     </b-row>
                 </b-container>
             </div>
-            <div id="product-catalog-wrapper">
+            <div id="productCatalogWrapper">
                 <b-container id="productCatalog" ref="productCatalog">
                     <h2>Product Catalog</h2>
                     <div v-if="shop.products.length">
@@ -45,8 +45,8 @@
                                         {{ product.description }}
                                     </b-card-text>
 
-                                    <b-button v-bind:href="'/app/products/' + product.id" variant="info">Details</b-button>
-                                    <b-button href="#" variant="primary">Add to Cart</b-button>
+                                    <b-button v-bind:href="'/app/products/' + product.id" variant="info" class="card-button">Details</b-button>
+                                    <b-button href="#" variant="primary" class="card-button">Add to Cart</b-button>
                                 </b-card>
                             </b-col>
                         </b-row>
@@ -98,12 +98,19 @@
 
 <style scoped>
 
-    #shop-intro-wrapper {
+    #shop-details-wrapper {
         background-color: #fbf7ed;
     }
 
-    #shop-intro {
+    #shop-details {
         height: 680px;
     }
 
+    #shop-image {
+        width: 100%;
+    }
+
+    .card-button {
+        margin-right: 0.5em;
+    }
 </style>
