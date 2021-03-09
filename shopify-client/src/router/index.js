@@ -5,8 +5,6 @@ import Home from "../views/Home.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import ProductCreate from "../views/ProductCreate.vue";
 import ProductUpdate from "../views/ProductUpdate";
-import Login from "../views/Login"
-import SignUp from "@/views/SignUp";
 
 Vue.use(VueRouter);
 
@@ -42,18 +40,6 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-  {
-    path: "/app/login",
-    name: "Login",
-    component: Login,
-    props: true
-  },
-  {
-    path: "/app/signup",
-    name: "Sign Up",
-    component: SignUp,
-    props: true
   }
 ];
 
