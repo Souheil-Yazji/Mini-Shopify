@@ -7,14 +7,15 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-form>
+            <b-nav-item to="/app/shop">Shop</b-nav-item>
             <b-form-input placeholder="Search"></b-form-input>
           </b-nav-form>
         </b-navbar-nav>
       </b-collapse>
 
-        <b-navbar-nav class="ml-auto">
-          <b-navbar-brand to="/app">MiniShopify</b-navbar-brand>
-        </b-navbar-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-navbar-brand to="/app">MiniShopify</b-navbar-brand>
+      </b-navbar-nav>
 
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->

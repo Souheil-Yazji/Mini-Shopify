@@ -27,6 +27,7 @@
 import Header from "@/components/Header";
 export default {
   components: {
-    "Header": Header}
+    "Header": Header
+  }
 }
 </script>
