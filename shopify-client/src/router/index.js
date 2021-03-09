@@ -5,6 +5,7 @@ import Home from "../views/Home.vue";
 import ProductDetails from "../views/ProductDetails.vue";
 import ProductCreate from "../views/ProductCreate.vue";
 import ProductUpdate from "../views/ProductUpdate";
+import ShopList from "../views/ShopList.vue";
 
 import ShopDetails from "../views/ShopDetails.vue";
 
@@ -39,6 +40,11 @@ const routes = [
     name: "ShopDetails",
     component: ShopDetails,
     props: true,
+  },
+  {
+    path: '/app/shops/list',
+    name: 'ShopList',
+    component: ShopList,
   },
   {
     path: "/app/about",

@@ -61,4 +61,14 @@ public class ShopController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No shop found with id: %d", id));
         }
     }
+
+    @GetMapping("/list")
+    public List storeList(@RequestParam(name = "keyword", required = false) String keyword){
+        if(keyword != null){
+            if(!keyword.equals("")) {
+                return shopRepository.search(keyword);
+            }
+        }
+        return shopRepository.findAll();
+    }
 }
