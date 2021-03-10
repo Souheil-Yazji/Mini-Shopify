@@ -2,9 +2,9 @@
   <div>
     <p v-if="error">{{ error }}</p>
     <div class="text-left ml-3">
-      <b-button v-bind:to="'/app/shops/' + shopId" variant="primary"
-        >Back to Shop</b-button
-      >
+      <button v-on:click="shopDetails()" type="button" class="btn btn-link">
+        &lt; Back to Shop
+      </button>
     </div>
     <div v-if="product" class="text-center">
       <b-container>
@@ -70,6 +70,11 @@ export default {
       .catch((error) => {
         vm.error = error;
       });
+  },
+  methods: {
+    shopDetails() {
+      this.$router.push(`/app/shops/${this.shopId}`);
+    },
   },
 };
 </script>
