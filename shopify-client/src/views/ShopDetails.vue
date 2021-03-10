@@ -67,11 +67,9 @@
     export default {
         name: "ShopDetails",
         data: function () {
-          // console.log(this.$route);
             return {
                 shop: null,
-                error: "",
-                id: this.$route.query.id  // extract route query
+                error: ""
             };
         },
         methods: {
@@ -87,6 +85,7 @@
                 this.$router.push(`/app/shops/${this.id}/update`);
             }
         },
+      props:["id"],
         created: function () {
             const vm = this;
             fetch(`/api/shops/${vm.id}`)

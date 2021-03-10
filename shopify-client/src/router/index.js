@@ -50,15 +50,15 @@ const routes = [
     props: true,
   },
   {
-    path: "/app/shops",
-    name: "ShopDetails",
-    component: ShopDetails,
-    props: route => ({ query: route.query.id }),
-  },
-  {
     path: '/app/shops/list',
     name: 'ShopList',
     component: ShopList,
+  },
+  {
+    path: "/app/shops/:id",
+    name: "ShopDetails",
+    component: ShopDetails,
+    props: true
   },
   {
     path: "/app/about",

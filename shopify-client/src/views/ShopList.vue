@@ -65,7 +65,7 @@
         <img class="card-img-top" v-bind:src="shop.image"/> <!--Update when root image location is known -->
         <div class="card-body">
           <h5 class="card-title">
-            <router-link :to="{ path: '/app/shops', query: { id: shop.id }}">
+            <router-link :to="'/app/shops/'+shop.id" exact>
               {{shop.name}}
             </router-link>
           </h5>
