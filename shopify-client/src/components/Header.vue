@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="light">
+    <b-navbar toggleable="md" type="light" variant="light">
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -39,4 +39,10 @@ export default {
 </script>
 
 <style scoped>
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
 </style>
