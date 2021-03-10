@@ -5,6 +5,7 @@
       v-if="product"
       v-bind:handleSubmit="handleSubmit"
       v-bind:initialValues="product"
+      v-bind:shopId="shopId"
     />
   </div>
 </template>
@@ -14,7 +15,7 @@ import ProductForm from "@/components/ProductForm.vue";
 
 export default {
   name: "ProductUpdate",
-  props: ["id"],
+  props: ["shopId", "id"],
   components: {
     ProductForm,
   },
