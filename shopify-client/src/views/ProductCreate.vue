@@ -1,5 +1,11 @@
 <template>
   <div class="center">
+    <button v-on:click="shopDetails()"
+            type="button"
+            id="back-btn"
+            class="btn btn-link">
+      &lt; Back to Shop
+    </button>
     <ProductForm
       v-bind:handleSubmit="handleSubmit"
       v-bind:initialValues="form"
@@ -42,11 +48,20 @@ export default {
           handler(response);
         });
     },
+    shopDetails() {
+        // Navigate to the shop detail page
+        this.$router.push(`/app/shops/${this.shopId}`);
+    },
   },
 };
 </script>
 
 <style scoped>
+
+#back-btn {
+  padding-left: 0;
+}
+
 .center {
   margin-left: 500px;
   margin-right: 500px;
