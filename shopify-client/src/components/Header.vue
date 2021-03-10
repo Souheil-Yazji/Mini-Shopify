@@ -7,7 +7,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-form>
-            <b-nav-item to="/app/shop">Shop</b-nav-item>
+            <b-nav-item to="/app/shops/list">Shop</b-nav-item>
             <b-form-input placeholder="Search"></b-form-input>
           </b-nav-form>
         </b-navbar-nav>
