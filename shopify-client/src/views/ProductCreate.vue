@@ -1,6 +1,9 @@
 <template>
   <div class="center">
-    <button v-on:click="shopDetails()" type="button" id="back-btn" class="btn btn-link">
+    <button v-on:click="shopDetails()"
+            type="button"
+            id="back-btn"
+            class="btn btn-link">
       &lt; Back to Shop
     </button>
     <ProductForm
