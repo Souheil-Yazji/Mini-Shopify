@@ -1,5 +1,8 @@
 <template>
   <div class="center">
+    <button v-on:click="shopDetails()" type="button" id="back-btn" class="btn btn-link">
+      &lt; Back to Shop
+    </button>
     <p v-if="error">{{ error }}</p>
     <ShopForm
       v-if="shop"
@@ -55,11 +58,19 @@ export default {
           handler(response);
         });
     },
+    shopDetails() {
+        // Navigate to the shop detail page
+        this.$router.push(`/app/shops/${this.shopId}`);
+    },
   },
 };
 </script>
 
 <style scoped>
+#back-btn {
+  padding-left: 0;
+}
+
 .center {
   margin-left: 10%;
   margin-right: 10%;
