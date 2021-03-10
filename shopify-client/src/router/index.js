@@ -50,15 +50,15 @@ const routes = [
     props: true,
   },
   {
-    path: "/app/shops/:id",
-    name: "ShopDetails",
-    component: ShopDetails,
-    props: true,
-  },
-  {
     path: '/app/shops/list',
     name: 'ShopList',
     component: ShopList,
+  },
+  {
+    path: "/app/shops/:id",
+    name: "ShopDetails",
+    component: ShopDetails,
+    props: true
   },
   {
     path: "/app/about",
@@ -68,7 +68,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
+  }
 ];
 
 const router = new VueRouter({
