@@ -3,6 +3,7 @@
     <ProductForm
       v-bind:handleSubmit="handleSubmit"
       v-bind:initialValues="form"
+      v-bind:shopId="shopId"
     />
   </div>
 </template>
