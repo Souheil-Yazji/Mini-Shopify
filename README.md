@@ -30,7 +30,7 @@ To Pull and Run this code locally,
 To host the front end,
 
 1. cd into shopify-client
-2. run `yarn intall` or `npm install`
+2. run `yarn install` or `npm install`
 3. run `yarn run serve` or `npm run serve`
 
 ## Project State
