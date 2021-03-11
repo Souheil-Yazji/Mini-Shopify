@@ -1,6 +1,6 @@
 # Mini-Shopify
 ## About
-This project aims to create a platform, inspired by shopify, which allows signed-in users to create shops and any web user to browse and purchase products from said shops. <br /> <br /> 
+This project aims to create a platform, inspired by shopify, which allows signed-in users to create shops and any web user to browse and purchase products from said shops. The web application is only supported on JavaScript enables browsers.<br /> <br /> 
 ## Authors
 - David Wang
 - Derek Shao
