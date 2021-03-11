@@ -21,19 +21,20 @@ const routes = [
     component: Home,
   },
   {
-    path: "/app/products/:id",
-    name: "ProductDetails",
-    component: ProductDetails,
-    props: true,
-  },
-  {
-    path: "/app/shop/:shopId/products/create",
+    path: "/app/shops/:shopId/products/create",
     name: "ProductCreate",
     component: ProductCreate,
     props: true,
   },
   {
-    path: "/app/products/update/:id",
+    path: "/app/shops/:shopId/products/:id",
+    name: "ProductDetails",
+    component: ProductDetails,
+    props: true,
+    exact: true,
+  },
+  {
+    path: "/app/shops/:shopId/products/update/:id",
     name: "ProductUpdate",
     component: ProductUpdate,
     props: true,

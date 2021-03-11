@@ -97,7 +97,7 @@
 <script>
 export default {
   name: "ProductForm",
-  props: ["handleSubmit", "initialValues"],
+  props: ["handleSubmit", "initialValues", "shopId"],
   data: function() {
     return {
       form: {
@@ -131,7 +131,9 @@ export default {
               return;
             }
 
-            this.$router.push(`/app/products/${response.id}`);
+            this.$router.push(
+              `/app/shops/${this.shopId}/products/${response.id}`
+            );
           });
         });
       } catch (error) {

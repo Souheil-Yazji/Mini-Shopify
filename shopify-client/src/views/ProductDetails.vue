@@ -1,6 +1,11 @@
 <template>
   <div>
     <p v-if="error">{{ error }}</p>
+    <div class="text-left ml-3">
+      <button v-on:click="shopDetails()" type="button" class="btn btn-link">
+        &lt; Back to Shop
+      </button>
+    </div>
     <div v-if="product" class="text-center">
       <b-container>
         <b-row>
@@ -26,7 +31,9 @@
                 <p>Quantity: {{ product.quantity }}</p>
               </b-col>
               <b-col sm="12">
-                <b-button v-bind:to="'/app/products/update/' + id"
+                <b-button
+                  v-bind:to="'/app/shops/' + shopId + '/products/update/' + id"
+                  variant="primary"
                   >Update</b-button
                 >
               </b-col>
@@ -47,7 +54,7 @@ export default {
       error: "",
     };
   },
-  props: ["id"],
+  props: ["shopId", "id"],
   created: function() {
     const vm = this;
     fetch(`/api/products/${vm.id}`)
@@ -63,6 +70,11 @@ export default {
       .catch((error) => {
         vm.error = error;
       });
+  },
+  methods: {
+    shopDetails() {
+      this.$router.push(`/app/shops/${this.shopId}`);
+    },
   },
 };
 </script>
