@@ -242,4 +242,9 @@ input{
   margin: 5px;
   vertical-align: top;
 }
+
+.card-img-top{
+  width: auto;
+  height: 50%;
+}
 </style>
