@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -75,6 +76,17 @@ public class ProductControllerTest {
         mvc.perform(get("/api/products/2"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenFindProductsByIds_thenReturnProducts() throws Exception {
+
+        when(productRepository.findAllById(any())).thenReturn(new ArrayList<Product>());
+
+        mvc.perform(get("/api/products?ids=1,2"))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk());
     }
 
     @Test

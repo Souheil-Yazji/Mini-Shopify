@@ -105,7 +105,7 @@ export default {
     },
     addProductToCart(id) {
 
-      this.$store.commit('addProduct', { id: id })
+      this.$store.commit('addProduct', id);
     }
   },
   props: ["id"],
