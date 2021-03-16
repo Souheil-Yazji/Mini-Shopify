@@ -1,5 +1,6 @@
 package com.shopify.minishopify.model;
 
+import com.shopify.minishopify.repository.ShopRepository;
 import com.shopify.minishopify.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserTest {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ShopRepository shopRepository;
 
     @BeforeEach
     public void prepareDB() {
+        shopRepository.deleteAll();
         userRepository.deleteAll();
     }
 
