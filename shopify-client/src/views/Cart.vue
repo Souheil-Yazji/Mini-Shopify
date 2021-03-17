@@ -29,8 +29,8 @@
                       v-on:change="editCartQuantityForProduct(product.id, $event.target.value)">
                 <option v-for="quantity in product.quantity"
                         :key="product.name + product.id + quantity"
-                        :selected="quantity === quantities[product.id]"
-                        v-bind:value="quantity">{{ quantity }}</option>
+                        :selected="quantity === cart[product.id]"
+                        v-bind:value=quantity>{{ quantity }}</option>
               </select>
             </p>
             <button type="button" class="btn btn-outline-danger btn-sm" v-on:click="removeProductFromCart(product.id)">
@@ -57,13 +57,13 @@ export default {
   data: function() {
     return {
       products: [],
-      quantities: {},
+      cart: {},
       error: "",
     };
   },
   created: function() {
 
-    this.quantities = this.$store.state.cart;
+    this.cart = this.$store.state.cart;
 
     this.getCartProductData();
   },
@@ -85,7 +85,7 @@ export default {
     editCartQuantityForProduct(productId, newQuantity) {
 
       this.$store.commit('editProductQuantity', {productId, newQuantity});
-      this.quantities = this.$store.state.cart;
+      this.cart = this.$store.state.cart;
     }
   },
 };

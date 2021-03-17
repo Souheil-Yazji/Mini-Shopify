@@ -21,8 +21,7 @@ export default new Vuex.Store({
     },
     editProductQuantity: (state, {productId, newQuantity}) => {
 
-      const updated = parseInt(newQuantity);
-      state.cart = Object.assign({}, state.cart, {[productId]: updated});
+      state.cart = Object.assign({}, state.cart, {[productId]: newQuantity});
     }
   },
   actions: {

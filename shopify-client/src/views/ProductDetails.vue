@@ -36,7 +36,6 @@
                   variant="primary"
                   >Update</b-button
                 >
-                <b-button variant="primary">Add to Cart</b-button>
               </b-col>
             </b-row>
           </b-col>
