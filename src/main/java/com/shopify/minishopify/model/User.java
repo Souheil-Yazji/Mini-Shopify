@@ -8,7 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "user",
+@Table(name = "\"user\"",
+        schema = "migrations",
         uniqueConstraints = @UniqueConstraint(columnNames = "email")
 )
 public class User {
