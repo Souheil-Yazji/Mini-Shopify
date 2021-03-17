@@ -5,14 +5,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cart: [
-
-    ]
+    cart: {},
   },
   mutations: {
-    addProduct: (state, product) => {
-      state.cart.push(product);
-      console.log(state.cart);
+    addProduct: (state, productId) => {
+
+      state.cart = Object.assign({}, state.cart, {[productId]: state.cart[productId] + 1 || 1});
+    },
+    removeProduct: (state, productId) => {
+
+      const cartClone = Object.assign({}, state.cart);
+      delete cartClone[productId];
+
+      state.cart = cartClone;
+    },
+    editProductQuantity: (state, {productId, newQuantity}) => {
+
+      const updated = parseInt(newQuantity);
+      state.cart = Object.assign({}, state.cart, {[productId]: updated});
     }
   },
   actions: {
