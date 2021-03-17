@@ -41,7 +41,7 @@ public class ProductTest {
     @Test
     @Transactional
     public void testPersistence() {
-        User testUser = new User("TEST_USER", "JUNIT");
+        User testUser = new User("TEST_USER", "JUNIT", "Password");
         Shop testShop = new Shop(testUser, "TEST_SHOP", "JUnit Test Shop", "Image");
         Product product = new Product("TEST_PRODUCT", "Description", 1.0f, 1, "image");
         testShop.addProduct(product);

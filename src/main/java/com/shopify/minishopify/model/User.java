@@ -1,15 +1,16 @@
 package com.shopify.minishopify.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "users",
+        uniqueConstraints = @UniqueConstraint(columnNames = "email")
+)
 public class User {
     @Id
     @GeneratedValue
@@ -17,17 +18,31 @@ public class User {
     private int id;
 
     @Column(name = "name")
+    @NotNull(message = "User must have a name")
     private String name;
 
     @Column(name = "email")
+    @NotNull(message = "User must have an email")
     private String email;
+
+    @Column(name = "password")
+    @NotNull(message = "User must have a password")
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+                joinColumns = @JoinColumn(name = "user_id"),
+                inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<Role>();
 
     public User() {
     }
 
-    public User(String name, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -48,6 +63,22 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
