@@ -62,7 +62,7 @@
           v-bind:key="'shop' + shop.id"
           class="shopTile card"
       >
-        <img class="card-img-top" v-bind:src="shop.image"/> <!--Update when root image location is known -->
+        <b-img class="card-img-top" v-bind:src="shop.image" fluid/> <!--Update when root image location is known -->
         <div class="card-body">
           <h5 class="card-title">
             <router-link :to="'/app/shops/'+shop.id" exact>
@@ -236,7 +236,7 @@ input{
 }
 
 .card{
-  height: 300px;
+  height: 350px;
   width: 300px;
   display: inline-block;
   margin: 5px;
@@ -244,7 +244,6 @@ input{
 }
 
 .card-img-top{
-  width: auto;
-  height: 50%;
+  height: 40%;
 }
 </style>
