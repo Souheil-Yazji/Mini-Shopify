@@ -15,7 +15,9 @@
             <p>Price</p>
           </b-col>
         </b-row>
-        <b-row v-for="product in products" :key="product.name" class="b-row-cart-item">
+        <b-row v-for="product in products"
+               :key="product.name"
+               class="b-row-cart-item">
           <b-col class="col-sm-2">
             <div class="card-img-wrapper">
               <b-img class="card-img" v-bind:src="product.image"></b-img>
@@ -83,8 +85,8 @@ export default {
       this.getCartProductData();
     },
     editCartQuantityForProduct(productId, newQuantity) {
-
-      this.$store.commit('editProductQuantity', {productId, newQuantity});
+      const newQuantityNumber = parseInt(newQuantity);
+      this.$store.commit('editProductQuantity', {productId, newQuantityNumber});
       this.cart = this.$store.state.cart;
     }
   },

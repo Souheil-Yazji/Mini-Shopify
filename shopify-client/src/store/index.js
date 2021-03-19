@@ -19,9 +19,9 @@ export default new Vuex.Store({
 
       state.cart = cartClone;
     },
-    editProductQuantity: (state, {productId, newQuantity}) => {
+    editProductQuantity: (state, {productId, newQuantityNumber}) => {
 
-      state.cart = Object.assign({}, state.cart, {[productId]: newQuantity});
+      state.cart = Object.assign({}, state.cart, {[productId]: newQuantityNumber});
     }
   },
   actions: {
