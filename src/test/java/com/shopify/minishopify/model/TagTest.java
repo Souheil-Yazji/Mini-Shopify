@@ -26,12 +26,12 @@ public class TagTest {
         tagRepository.save(testTag);
 
         List<Tag> dbTags = tagRepository.findAll();
-        assertEquals(dbTags.size(), 1);
+        assertEquals(1, dbTags.size());
         Tag readTag = dbTags.get(0);
         assertEquals("TEST_TAG", readTag.getName());
 
         tagRepository.delete(readTag);
         dbTags = tagRepository.findAll();
-        assertEquals(dbTags.size(), 0);
+        assertEquals(0, dbTags.size());
     }
 }

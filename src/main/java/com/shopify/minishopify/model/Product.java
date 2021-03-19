@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import static javax.persistence.CascadeType.ALL;
@@ -126,7 +127,7 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && Float.compare(product.price, price) == 0 && quantity == product.quantity &&
+        return id == product.id && Float.compare(product.price, price) == 0 && quantity.equals(product.quantity) &&
                 Objects.equals(shop, product.shop) && Objects.equals(name, product.name) &&
                 image.equals(product.image);
     }

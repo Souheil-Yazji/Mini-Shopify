@@ -56,20 +56,17 @@
       <div v-if="filteredShops.length < 1">
         No results found
       </div>
-      <div
+      <b-card
           v-else
           v-for="shop in filteredShops"
           v-bind:key="'shop' + shop.id"
-          class="shopTile card"
+          v-bind:title="shop.name"
+          v-bind:sub-title="shop.description"
+          v-bind:img-src="shop.image"
+          img-top
+          class="shopTile mb-2"
       >
-        <img class="card-img-top" v-bind:src="shop.image"/> <!--Update when root image location is known -->
-        <div class="card-body">
-          <h5 class="card-title">
-            <router-link :to="'/app/shops/'+shop.id" exact>
-              {{shop.name}}
-            </router-link>
-          </h5>
-          <p class="card-text">{{shop.description}}</p>
+        <b-card-text class="shopAttributeBlock">
           <div
               v-for="category in shop.categories"
               v-bind:key="'shop' + shop.id + '_category' + category.id"
@@ -84,8 +81,11 @@
           >
             {{tag.name}}
           </div>
-        </div>
-      </div>
+        </b-card-text>
+        <b-card-text>
+          <a v-bind:href="'/app/shops/'+shop.id" class="card-link">Go to Shop</a>
+        </b-card-text>
+      </b-card>
     </div>
   </div>
 </template>
@@ -224,7 +224,7 @@ input{
   display: inline-block;
   border: #d6d6de solid 1px;
   padding: 5px;
-  margin: 0 5px;
+  margin: 0 10px 0 0;
 }
 
 .shopCategory{
@@ -236,10 +236,14 @@ input{
 }
 
 .card{
-  height: 300px;
+  height: 350px;
   width: 300px;
   display: inline-block;
   margin: 5px;
   vertical-align: top;
+}
+
+.card-img-top{
+  height: 40%;
 }
 </style>
