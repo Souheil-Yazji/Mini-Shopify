@@ -26,7 +26,7 @@ public class UserTest {
 
     @Test
     public void testPersistence() {
-        User testUser = new User("TEST_USER", "JUNIT");
+        User testUser = new User("TEST_USER", "JUNIT", "Password");
         userRepository.save(testUser);
 
         List<User> dbUsers = userRepository.findAll();
@@ -34,6 +34,7 @@ public class UserTest {
         User readUser = dbUsers.get(0);
         assertEquals("TEST_USER", readUser.getName());
         assertEquals("JUNIT", readUser.getEmail());
+        assertEquals("Password", readUser.getPassword());
 
         userRepository.delete(readUser);
         dbUsers = userRepository.findAll();
