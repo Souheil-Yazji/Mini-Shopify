@@ -56,7 +56,7 @@ public class ShopControllerTest {
 
     @BeforeAll
     public void initialize() throws Exception {
-        shopOwner = new User("shop owner", "shopowner@email.com");
+        shopOwner = new User("shop owner", "shopowner@email.com", "Password");
         shop1 = new Shop(shopOwner, "Shop1", "Shop1 description", "image");
 
         ownerJsonBody = new JSONObject();
