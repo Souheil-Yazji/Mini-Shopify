@@ -2,8 +2,10 @@ package com.shopify.minishopify.controllers;
 
 import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.model.User;
+import com.shopify.minishopify.repository.CategoryRepository;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
+import com.shopify.minishopify.repository.TagRepository;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,6 +40,12 @@ public class ShopControllerTest {
 
     @MockBean
     private ProductRepository productRepository;
+
+    @MockBean
+    private CategoryRepository categoryRepository;
+
+    @MockBean
+    private TagRepository tagRepository;
 
     // test objects
     private Shop shop1;

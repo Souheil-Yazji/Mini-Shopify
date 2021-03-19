@@ -12,7 +12,7 @@
           <b-col sm="6">
             <b-row>
               <b-col sm="12">
-                <b-img v-bind:src="product.image"></b-img>
+                <b-img v-bind:src="product.image" fluid></b-img>
               </b-col>
             </b-row>
           </b-col>
