@@ -25,6 +25,7 @@
           <b-nav-item to="/app/about">About</b-nav-item>
           <b-nav-item to="/app/login">Login</b-nav-item>
           <b-nav-item to="/app/signup">Sign Up</b-nav-item>
+          <b-nav-item to="/app/cart">Cart ({{ cartItems }})</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -34,7 +35,13 @@
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  computed: {
+    cartItems: function() {
+
+      return Object.keys(this.$store.state.cart).length;
+    }
+  }
 }
 </script>
 

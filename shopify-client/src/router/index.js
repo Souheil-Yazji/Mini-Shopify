@@ -8,9 +8,10 @@ import ProductUpdate from "../views/ProductUpdate";
 import ShopList from "../views/ShopList.vue";
 
 import ShopDetails from "../views/ShopDetails.vue";
-
 import ShopCreate from "../views/ShopCreate.vue";
 import ShopUpdate from "../views/ShopUpdate.vue";
+
+import Cart from "../views/Cart.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
     name: "ShopDetails",
     component: ShopDetails,
     props: true,
+  },
+  {
+    path: "/app/cart/",
+    name: "Cart",
+    component: Cart
   },
   {
     path: "/app/about",
