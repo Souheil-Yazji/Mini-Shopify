@@ -41,11 +41,9 @@ export default {
   name: "Header",
   methods:{
     submitSearch: function(){
-      let keyword = "";
       if(this.keyword){
-        keyword = "?keyword=" + this.keyword;
+        window.location.href = '/app/shops/List?keyword=' + this.keyword;
       }
-      window.location.href = '/app/shops/List' + keyword;
     }
   },
   computed: {
