@@ -42,8 +42,13 @@ export default {
   methods:{
     submitSearch: function(){
       if(this.keyword){
-        window.location.href = '/app/shops/List?keyword=' + this.keyword;
+        this.$router.push({name: 'ShopList', query:{keyword: this.keyword}});
       }
+    },
+  },
+  watch:{
+    '$route.params': function(){
+      this.$router.go(0);
     }
   },
   computed: {
