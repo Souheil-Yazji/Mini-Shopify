@@ -12,6 +12,7 @@ import ShopCreate from "../views/ShopCreate.vue";
 import ShopUpdate from "../views/ShopUpdate.vue";
 
 import Cart from "../views/Cart.vue";
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(VueRouter);
 
@@ -63,9 +64,14 @@ const routes = [
     props: true,
   },
   {
-    path: "/app/cart/",
+    path: "/app/cart",
     name: "Cart",
     component: Cart
+  },
+  {
+    path: "/app/checkout",
+    name: "Checkout",
+    component: Checkout
   },
   {
     path: "/app/about",

@@ -9,11 +9,13 @@
               <b-navbar-nav class="mr-auto">
                 <b-nav-item to="/app/shops/list">Shop</b-nav-item>
                 <b-nav-item to="/app/shops/create">Create</b-nav-item>
+                <b-nav-item to="/app/cart">Cart</b-nav-item>
                 <b-form-input
                     @keyup.enter="submitSearch"
                     placeholder="Search"
                     v-model="keyword"
                 ></b-form-input>
+                <b-form-input placeholder="Search"></b-form-input>
               </b-navbar-nav>
             </b-collapse>
           </b-col>
