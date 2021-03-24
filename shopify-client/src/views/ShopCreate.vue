@@ -21,7 +21,7 @@
                     name: "",
                     description: "",
                     image: null,
-                    owner: { name: "TEST_USER", email: "TEST_EMAIL" }, /* TODO - replace with current user */
+                    owner: { name: "TEST_USER", email: "TEST_EMAIL", password: "123" }, /* TODO - replace with current user */
                 },
             };
         },
