@@ -4,7 +4,7 @@
       <b-jumbotron :fluid="true" :container-fluid="true">
 
         <template #header>
-          <img alt="MiniSopify logo" src="../assets/MiniShopLogo.png">
+          <img alt="MiniShopify logo" src="../assets/MiniShopLogo.png">
         </template>
 
         <template #lead>
