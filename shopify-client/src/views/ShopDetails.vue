@@ -50,8 +50,9 @@
                   v-bind:img-src="product.image"
                   v-bind:img-alt="product.name"
                   img-top
+                  img-height="60%"
                   tag="article"
-                  style="max-width: 20rem;"
+                  style="max-width: 20rem; height: 100%;"
                   class="mb-2"
                 >
                   <b-card-text>
@@ -144,4 +145,9 @@ export default {
 .card-button {
   margin-right: 0.5em;
 }
+
+.card-img-top {
+  object-fit: cover;
+}
+
 </style>
