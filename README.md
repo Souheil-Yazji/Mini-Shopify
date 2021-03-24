@@ -43,43 +43,9 @@ Some items to be completed by next sprint are:
 1. User Authentication: this item will allow only authorized users to create/modify shops and products. It will also bind users to shops. This will likely include a login and signup view.
 2. Shopping Cart: this item will allow shoppers to hold products in their cart for later checkout and modify their cart's contents. This will also include a cart view.
 
-### Database Schema
----
-This is a brief presentation of the Postgres database schema. All tables are currently under the migrations schema with *italicized primary key*.
+### UML Class Diagram
+![SYSC4806_UML - UML Class](https://user-images.githubusercontent.com/17705586/111795913-067d0900-889e-11eb-841a-08c0ad2b8d43.png)
 
-category:
-| *id*        | name       
-|---|---    
-| bigint       | text
-
-</br>tag:
-| *id*        | name           
-|---|---    
-| bigint       | text
-
-</br>user:
-| *id*        | email | name           
-|---|---|---
-| bigint       | text | text
-
-</br>shop:
-| *id*        | owner_id | name | description          
-|---|---|---|---
-| bigint       | bigint | text | text
-
-</br>product:
-| *id*        | shop_id | name | price | quantity | image | description         
-|---|---|---|---|---|---|---
-| bigint       | bigint | text |decimal | integer | text | text
-
-</br>The following tables are used to map shops to categories and tags respectivey.
-</br>
-</br>shop_category:
-| *shop_id*        | *category_id* 
-|---|---
-| bigint       | bigint 
-
-</br>shop_tag:
-| *shop_id*        | *tag_id* 
-|---|---
-| bigint       | bigint 
+### E-R Diagram
+This is a brief presentation of the Postgres database schema.
+![SYSC4806_UML - ER diagram](https://user-images.githubusercontent.com/17705586/111795676-cf0e5c80-889d-11eb-80d8-6e5fb67cf04e.png)

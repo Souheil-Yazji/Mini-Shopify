@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,6 +40,12 @@ public class ProductController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No product found with id: %d", id));
         }
+    }
+
+    @GetMapping("/products")
+    public Iterable<Product> getProductsByIds(@RequestParam List<Integer> ids) {
+
+        return productRepository.findAllById(ids);
     }
 
     @PostMapping("/shop/{id}/products/create")
