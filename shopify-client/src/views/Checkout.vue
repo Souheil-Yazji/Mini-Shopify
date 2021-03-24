@@ -1,36 +1,42 @@
 <template>
   <div class="center">
+    <div v-if="error">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        v-bind:key="name"
+        v-for="(value, name) in error"
+      >
+        {{ value }}
+      </div>
+    </div>
     <b-container>
-      <b-row>
-        <h2>Shopping Cart</h2>
-      </b-row>
-      <b-row>
-        <b-col class="col-sm-2"></b-col>
-        <b-col>
+      <b-row class="border-bottom">
+        <b-col class="p-0">
           <p>Product Name</p>
+        </b-col>
+        <b-col>
+          <p>Quantity</p>
         </b-col>
         <b-col>
           <p>Price</p>
         </b-col>
       </b-row>
-      <b-row
-        v-for="product in products"
-        :key="product.name"
-        class="b-row-cart-item"
-      >
-        <b-col class="col-sm-2">
-          <div class="card-img-wrapper">
-            <b-img class="card-img" v-bind:src="product.image"></b-img>
-          </div>
+      <b-row v-for="product in products" :key="product.name">
+        <b-col>
+          <p>{{ product.name }}</p>
         </b-col>
         <b-col>
-          <h4>{{ product.name }}</h4>
-          <p>{{ product.description }}</p>
-          <p>Quantity: {{ product.quantity }}</p>
+          <p>{{ product.quantity }}</p>
         </b-col>
         <b-col>
-          <p>${{ product.price }}</p>
+          <p>${{ product.quantity * product.price }}</p>
         </b-col>
+      </b-row>
+      <b-row class="border-top">
+        <b-col class="p-0"></b-col>
+        <b-col></b-col>
+        <b-col> Total: ${{ this.getTotalPrice() }} </b-col>
       </b-row>
     </b-container>
     <div v-if="error">
@@ -118,17 +124,25 @@ export default {
     onSubmit(event) {
       event.preventDefault();
       try {
-        this.encode(this.form.image, (image) => {
-          this.handleSubmit({ ...this.form, image: image }, (response) => {
-            if ((response.status && response.status != 200) || !response.id) {
-              this.error = response;
-              return;
-            }
+        fetch(`/api/checkout`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            checkouts: this.products.map((p) => ({
+              id: p.id,
+              quantity: p.quantity,
+            })),
+          }),
+        }).then((response) => {
+          if (response.status !== 200) {
+            this.error = response;
+            return;
+          }
 
-            this.$router.push(
-              `/app/shops/${this.shopId}/products/${response.id}`
-            );
-          });
+          this.$store.commit("clearCart");
+          this.$router.push("/app/checkout/success");
         });
       } catch (error) {
         this.error = error;
@@ -146,7 +160,6 @@ export default {
           this.error = error;
         });
     },
-
     onReset(event) {
       event.preventDefault();
       // Reset our form values
@@ -159,6 +172,12 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
+    },
+    getTotalPrice() {
+      return this.products.reduce(
+        (acc, cur) => acc + cur.quantity * cur.price,
+        0
+      );
     },
   },
 };
