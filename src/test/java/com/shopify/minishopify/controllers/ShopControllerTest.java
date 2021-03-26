@@ -61,7 +61,7 @@ public class ShopControllerTest {
 
         ownerJsonBody = new JSONObject();
         ownerJsonBody.put("id", shopOwner.getId());
-        ownerJsonBody.put("name", shopOwner.getName());
+        ownerJsonBody.put("name", shopOwner.getUsername());
         ownerJsonBody.put("email", shopOwner.getEmail());
 
         shopJsonBody = new JSONObject();

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -43,12 +44,14 @@ public class ShopController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('SHOP') or hasRole('ADMIN')")
     public Shop createShop(@Valid @RequestBody Shop shop) {
-        LOG.info("Created Shop {} for User {}", shop.getName(), shop.getOwner().getName());
+        LOG.info("Created Shop {} for User {}", shop.getName(), shop.getOwner().getUsername());
         return shopRepository.save(shop);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('SHOP') or hasRole('ADMIN')")
     public Shop updateShop(@Valid @RequestBody Shop updatedShop, @PathVariable int id) {
 
         Optional<Shop> shopQuery = shopRepository.findById(id);
@@ -60,7 +63,7 @@ public class ShopController {
             shop.setCategories(updatedShop.getCategories());
             shop.setTags(updatedShop.getTags());
 
-            LOG.info("Updated Shop id:{} for User {}", shop.getId(), shop.getOwner().getName());
+            LOG.info("Updated Shop id:{} for User {}", shop.getId(), shop.getOwner().getUsername());
             return shopRepository.save(shop);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No shop found with id: %d", id));

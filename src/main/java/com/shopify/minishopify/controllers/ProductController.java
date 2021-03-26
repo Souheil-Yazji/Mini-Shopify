@@ -6,6 +6,7 @@ import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,7 @@ public class ProductController {
     }
 
     @PostMapping("/shop/{id}/products/create")
+    @PreAuthorize("hasRole('SHOP') or hasRole('ADMIN')")
     public Product createProduct(@PathVariable int id, @Valid @RequestBody Product product) {
         Shop shop = null;
         Optional<Shop> optional = shopRepository.findById(id);
@@ -65,6 +67,7 @@ public class ProductController {
     }
 
     @PostMapping("/products/update/{id}")
+    @PreAuthorize("hasRole('SHOP') or hasRole('ADMIN')")
     public Product updateProductById(@PathVariable int id, @Valid @RequestBody Product updatedProduct) {
         Optional<Product> optional = productRepository.findById(id);
 
@@ -82,6 +85,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/delete/{id}")
+    @PreAuthorize("hasRole('SHOP') or hasRole('ADMIN')")
     public Product deleteProductById(@PathVariable int id) {
         Product product = null;
         Optional<Product> optional = productRepository.findById(id);
