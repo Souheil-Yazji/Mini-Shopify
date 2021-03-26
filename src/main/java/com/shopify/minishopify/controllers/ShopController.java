@@ -54,10 +54,11 @@ public class ShopController {
         Optional<Shop> shopQuery = shopRepository.findById(id);
 
         if (shopQuery.isPresent()) {
-
             Shop shop = shopQuery.get();
             shop.setName(updatedShop.getName());
             shop.setDescription(updatedShop.getDescription());
+            shop.setCategories(updatedShop.getCategories());
+            shop.setTags(updatedShop.getTags());
 
             LOG.info("Updated Shop id:{} for User {}", shop.getId(), shop.getOwner().getName());
             return shopRepository.save(shop);

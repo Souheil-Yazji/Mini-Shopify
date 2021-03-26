@@ -12,6 +12,22 @@
               <b-col sm="12">
                 <h4>{{ shop.description }}</h4>
               </b-col>
+              <b-card-text class="shopAttributeBlock">
+                <div
+                  v-for="category in shop.categories"
+                  v-bind:key="'shop' + shop.id + '_category' + category.id"
+                  v-bind:class="'shopAttribute shopCategory ' + category.name"
+                >
+                  {{category.name}}
+                </div>
+                <div
+                  v-for="tag in shop.tags"
+                  v-bind:key="'shop' + shop.id + '_tag' + tag.id"
+                  v-bind:class="'shopAttribute shopTag ' + tag.name"
+                >
+                  {{tag.name}}
+                </div>
+              </b-card-text>
               <b-col sm="12">
                 <b-button v-on:click="updateShop()" variant="primary">
                   Update Shop
@@ -50,8 +66,9 @@
                   v-bind:img-src="product.image"
                   v-bind:img-alt="product.name"
                   img-top
+                  img-height="60%"
                   tag="article"
-                  style="max-width: 20rem;"
+                  style="max-width: 20rem; height: 100%;"
                   class="mb-2"
                 >
                   <b-card-text>
@@ -141,7 +158,27 @@ export default {
   width: 100%;
 }
 
+.shopAttribute{
+  display: inline-block;
+  border: #d6d6de solid 1px;
+  padding: 5px;
+  margin: 0 10px 0 0;
+}
+
+.shopCategory{
+  background: aquamarine;
+}
+
+.shopTag{
+  background: azure;
+}
+
 .card-button {
   margin-right: 0.5em;
 }
+
+.card-img-top {
+  object-fit: cover;
+}
+
 </style>
