@@ -324,10 +324,12 @@ export default {
 
     createTag() {
       let tagName = document.getElementById("createTagName").value;
-      if (tagName != undefined && tagName != '') {
+      if (tagName && !this.tags.find(t => t.name.localeCompare(tagName, undefined, { sensitivity: 'base' }))) {
         this.form.tags.push({ name: tagName });
 
         this.forceRender();
+      } else {
+        alert(`Invalid Tag Name - ${tagName ? 'Check if the tag already exists' : 'Please provide a tag name'}`);
       }
     },
 
@@ -352,10 +354,12 @@ export default {
 
     createCategory() {
       let categoryName = document.getElementById("createCategoryName").value;
-      if (categoryName) {
+      if (categoryName && !this.categories.find(c => c.name.localeCompare(categoryName, undefined, { sensitivity: 'base' }))) {
         this.form.categories.push({ name: categoryName });
 
         this.forceRender();
+      } else {
+        alert(`Invalid Category Name - ${categoryName ? 'Check if the category already exists' : 'Please provide a category name'}`);
       }
     },
 
