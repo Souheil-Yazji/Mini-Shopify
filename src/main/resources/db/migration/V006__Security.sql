@@ -1,0 +1,1 @@
+ALTER TABLE migrations.user RENAME COLUMN name TO username;
