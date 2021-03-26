@@ -1,4 +1,4 @@
-package com.shopify.minishopify.security;
+package com.shopify.minishopify.config;
 
 import com.shopify.minishopify.security.jwt.AuthEntryPointJwt;
 import com.shopify.minishopify.security.jwt.AuthTokenFilter;
@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -60,6 +58,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/shops/create").authenticated() // Auth for create shop
+                .antMatchers("/api/shops/update/**").authenticated() // Auth for update shop
+                .antMatchers("/api/shop/**/products/create").authenticated() // Auth for create product
+                .antMatchers("/api/products/update/:id").authenticated() // Auth for update product
+                .antMatchers("/api/products/delete/:id").authenticated() // Auth for delete product
+                .antMatchers("/api/**").permitAll() // Allow every other endpoints
+                .antMatchers("/app/**").permitAll() // Allow every other endpoints
+                .antMatchers("/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
                 .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 

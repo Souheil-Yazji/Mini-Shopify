@@ -4,6 +4,9 @@ import com.shopify.minishopify.repository.CategoryRepository;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
 import com.shopify.minishopify.repository.TagRepository;
+import com.shopify.minishopify.security.jwt.AuthEntryPointJwt;
+import com.shopify.minishopify.security.jwt.JwtUtils;
+import com.shopify.minishopify.security.services.UserDetailsServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,18 @@ public class TagControllerTest {
 
     @MockBean
     private TagRepository tagRepository;
+
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private UserController userController;
+
+    @MockBean
+    private JwtUtils jwtUtils;
 
     @Test
     public void whenGetTagList_ReturnAllTags() throws Exception {

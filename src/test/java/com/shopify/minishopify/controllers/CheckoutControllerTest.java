@@ -6,6 +6,9 @@ import com.shopify.minishopify.repository.CategoryRepository;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
 import com.shopify.minishopify.repository.TagRepository;
+import com.shopify.minishopify.security.jwt.AuthEntryPointJwt;
+import com.shopify.minishopify.security.jwt.JwtUtils;
+import com.shopify.minishopify.security.services.UserDetailsServiceImpl;
 import com.shopify.minishopify.viewmodel.Checkout;
 import com.shopify.minishopify.viewmodel.CheckoutList;
 import org.json.JSONArray;
@@ -50,6 +53,17 @@ public class CheckoutControllerTest {
     @MockBean
     private TagRepository tagRepository;
 
+    @MockBean
+    private UserDetailsServiceImpl userDetailsService;
+
+    @MockBean
+    private AuthEntryPointJwt authEntryPointJwt;
+
+    @MockBean
+    private UserController userController;
+
+    @MockBean
+    private JwtUtils jwtUtils;
     // Test objects
     private Product product1;
     private Product product2;
