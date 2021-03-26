@@ -145,8 +145,18 @@ public class Shop {
         tags.add(tag);
     }
 
+    public void setTags (List<Tag> tags) {
+        this.tags.clear();
+        this.tags.addAll(tags);
+    }
+
     public void addCategory(Category category) {
         categories.add(category);
+    }
+
+    public void setCategories (List<Category> categories) {
+        this.categories.clear();
+        this.categories.addAll(categories);
     }
 
     @Override
