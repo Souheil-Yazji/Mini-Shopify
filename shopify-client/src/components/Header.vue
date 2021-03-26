@@ -9,7 +9,7 @@
               <b-navbar-nav class="mr-auto">
                 <b-nav-item to="/app/shops/list">Shop</b-nav-item>
                 <b-nav-item to="/app/shops/create">Create</b-nav-item>
-                <b-nav-item to="/app/cart">Cart ({{ cartItems }})</b-nav-item>
+                <b-nav-item id="cartNav" to="/app/cart">Cart ({{ cartItems }})</b-nav-item>
                 <b-form-input
                     @keyup.enter="submitSearch"
                     placeholder="Search"
@@ -65,6 +65,10 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+}
+
+#cartNav{
+  width: 150px;
 }
 
 </style>
