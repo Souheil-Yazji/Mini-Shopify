@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Role {
 
     public enum ERole {
-        ROLE_ANON,  // Can Browse + purchase
-        ROLE_USER,  // Can create/modify/own shops, create/modify/own products + {Role_Anon}
+        ROLE_USER,  // Can Browse + purchase
+        ROLE_SHOP,  // Can create/modify/own shops, create/modify/own products + {Role_Anon}
         ROLE_ADMIN  // all access
     }
 

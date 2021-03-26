@@ -18,9 +18,9 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    @NotNull(message = "User must have a name")
-    private String name;
+    @Column(name = "username")
+    @NotNull(message = "User must have a username")
+    private String username;
 
     @Column(name = "email")
     @NotNull(message = "User must have an email")
@@ -40,8 +40,8 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String password) {
-        this.name = name;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
         roles = new HashSet<Role>();
@@ -51,12 +51,12 @@ public class User {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public void setEmail(String email) {
@@ -88,11 +88,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(email, user.email);
+        return id == user.id && Objects.equals(username, user.username) && Objects.equals(email, user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email);
+        return Objects.hash(id, username, email);
     }
 }
