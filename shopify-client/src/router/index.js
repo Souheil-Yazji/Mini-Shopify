@@ -15,6 +15,9 @@ import Cart from "../views/Cart.vue";
 import Checkout from "../views/Checkout.vue";
 import CheckoutSuccess from "../views/CheckoutSuccess.vue";
 
+import Login from "../views/Login"
+import SignUp from "../views/SignUp"
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -87,6 +90,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  },
+  {
+    path: "/app/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/app/signup",
+    name: "signup",
+    component: SignUp
   },
   // Redirect / to /app
   {
