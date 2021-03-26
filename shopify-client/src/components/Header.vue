@@ -47,11 +47,6 @@ export default {
       }
     },
   },
-  watch:{
-    '$route.params': function(){
-      this.$router.go(0);
-    }
-  },
   computed: {
     cartItems: function() {
       return Object.keys(this.$store.state.cart).length;
