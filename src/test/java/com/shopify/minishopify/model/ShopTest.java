@@ -64,7 +64,7 @@ public class ShopTest {
         List<User> dbUsers = userRepository.findAll();
         assertEquals(dbUsers.size(), 1);
         User readUser = dbUsers.get(0);
-        assertEquals("TEST_USER", readUser.getName());
+        assertEquals("TEST_USER", readUser.getUsername());
         assertEquals("JUNIT", readUser.getEmail());
 
         List<Category> dbCategories = categoryRepository.findAll();
