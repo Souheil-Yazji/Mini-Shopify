@@ -14,6 +14,7 @@ export default new Vuex.Store({
       state.cart = Object.assign({}, state.cart, {
         [productId]: state.cart[productId] + 1 || 1,
       });
+      Cookies.set('cart', state.cart);
     },
     removeProduct: (state, productId) => {
       const cartClone = Object.assign({}, state.cart);
@@ -22,24 +23,21 @@ export default new Vuex.Store({
       state.cart = cartClone;
       Cookies.set('cart', state.cart);
     },
-    editProductQuantity: (state, {productId, newQuantityNumber}) => {
-
-      state.cart = Object.assign({}, state.cart, {[productId]: newQuantityNumber});
-      Cookies.set('cart', state.cart);
-    },
-  },
-  actions: {
     editProductQuantity: (state, { productId, newQuantityNumber }) => {
       state.cart = Object.assign({}, state.cart, {
         [productId]: newQuantityNumber,
       });
+      Cookies.set('cart', state.cart);
     },
     clearCart: (state) => {
       state.cart = {};
+      Cookies.set('cart', state.cart);
     },
     setCart: (state, cart) => {
-        state.cart = cart;
+      state.cart = cart;
+      Cookies.set('cart', state.cart);
     },
   },
+  actions: {},
   modules: {},
 });
