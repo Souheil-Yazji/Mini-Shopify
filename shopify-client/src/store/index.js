@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -11,11 +11,11 @@ export default new Vuex.Store({
   mutations: {
     addProduct: (state, productId) => {
 
-      state.cart = Object.assign({}, state.cart, {[productId]: state.cart[productId] + 1 || 1});
-      Cookies.set('cart', state.cart);
+      state.cart = Object.assign({}, state.cart, {
+        [productId]: state.cart[productId] + 1 || 1,
+      });
     },
     removeProduct: (state, productId) => {
-
       const cartClone = Object.assign({}, state.cart);
       delete cartClone[productId];
 
@@ -27,12 +27,19 @@ export default new Vuex.Store({
       state.cart = Object.assign({}, state.cart, {[productId]: newQuantityNumber});
       Cookies.set('cart', state.cart);
     },
-    setCart: (state, cart) => {
-      state.cart = cart;
-    },
   },
   actions: {
+    editProductQuantity: (state, { productId, newQuantityNumber }) => {
+      state.cart = Object.assign({}, state.cart, {
+        [productId]: newQuantityNumber,
+      });
+    },
+    clearCart: (state) => {
+      state.cart = {};
+    },
+    setCart: (state, cart) => {
+        state.cart = cart;
+    },
   },
-  modules: {
-  }
-})
+  modules: {},
+});

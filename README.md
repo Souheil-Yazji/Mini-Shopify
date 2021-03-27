@@ -37,11 +37,12 @@ To host the front end,
 ---
 In milestone 1, the team started with the tasks of setting up the development stack to allow for agile development. The full development stack is configured, with a running TravisCI pipeline and heroku application also set up with a postgresSQL database. Most of the backend models have been completed. Controllers have been made to for shops and products. Front end components have been configured to route requests to the springboot backend controllers to be handled. The Vue.Js front end allows users to browse all shops, create a shop, modify a shop, create a product, modify a product and browse products in a shop using views. To see all completed issues in this task, please refer to the [Kanban Project](https://github.com/mpfan/Mini-Shopify/projects/1#column-13201543).
 
+In milestone 2, the team continued to implement core features such as allowing categories and tags to be attached to shops, shopping cart, and checkout. Aside from feature implementation, the team also improved the frontend by cleaning the styles. To see all completed issues in this task, please refer to the [Kanban Project](https://github.com/mpfan/Mini-Shopify/projects/1#column-13201543).
+
 ### Plan for Next Sprint
 ---
 Some items to be completed by next sprint are:
 1. User Authentication: this item will allow only authorized users to create/modify shops and products. It will also bind users to shops. This will likely include a login and signup view.
-2. Shopping Cart: this item will allow shoppers to hold products in their cart for later checkout and modify their cart's contents. This will also include a cart view.
 
 ### UML Class Diagram
 ![SYSC4806_UML - UML Class](https://user-images.githubusercontent.com/17705586/111795913-067d0900-889e-11eb-841a-08c0ad2b8d43.png)
