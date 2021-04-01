@@ -9,6 +9,14 @@
     <h1>Shop List</h1> <!--Temp header-->
     <div id="filters">
       <div class="filterTile">
+        <h4>Order by:</h4>
+        <b-form-select
+            v-model="selected"
+            v-bind:options="options"
+            @change="orderBy()"
+        ></b-form-select>
+      </div>
+      <div class="filterTile">
         <h4>Categories</h4>
         <div v-if="categories.length < 1">
           <p>No available categories</p>
@@ -129,6 +137,11 @@ export default {
       tags: [],
       keyword: '',
       error: '',
+      selected: 'shopId',
+      options: [
+        {value: "shopId", text: 'Default' },
+        {value: "alpha", text: 'Alphabetical' },
+      ],
     }
   },
   created: function(){
@@ -174,8 +187,34 @@ export default {
       });
 
       vm.filteredShops = attributeFilter(vm.shops, checkedBoxes)
-    }
-  },
+    },
+    orderBy: function () {
+      const vm = this;
+
+      function compareId(shop1, shop2) {
+        if (shop1.id < shop2.id) {
+          return -1;
+        }
+        return 1;
+      }
+
+      function compareAlpha(shop1, shop2) {
+        if (shop1.name < shop2.name) {
+          return -1;
+        }
+        else if (shop1.name > shop2.name) {
+          return 1;
+        }
+        return 0;
+      }
+
+      if (vm.selected === "shopId") {
+        vm.filteredShops = vm.filteredShops.sort(compareId);
+      } else if (vm.selected === "alpha") {
+        vm.filteredShops = vm.filteredShops.sort(compareAlpha);
+      }
+    },
+  }
 }
 </script>
 
