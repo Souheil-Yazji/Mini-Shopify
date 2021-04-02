@@ -21,9 +21,20 @@
 
 <script>
 import Header from "@/components/Header";
+import Cookies from 'js-cookie'
+
 export default {
   components: {
     "Header": Header
+  },
+  created: function() {
+
+    let cartCookieJson = Cookies.getJSON('cart');
+    if (cartCookieJson) {
+      this.$store.commit('setCart', cartCookieJson);
+    } else {
+      Cookies.set('cart', {});
+    }
   }
 }
 </script>
