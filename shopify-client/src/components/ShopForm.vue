@@ -324,7 +324,8 @@ export default {
 
     createTag() {
       let tagName = document.getElementById("createTagName").value;
-      if (tagName && !this.tags.find(t => t.name.localeCompare(tagName, undefined, { sensitivity: 'base' }))) {
+      if (tagName &&
+          !this.tags.find(t => t.name.toLowerCase() == tagName.toLowerCase())) {
         this.form.tags.push({ name: tagName });
 
         this.forceRender();
@@ -354,7 +355,8 @@ export default {
 
     createCategory() {
       let categoryName = document.getElementById("createCategoryName").value;
-      if (categoryName && !this.categories.find(c => c.name.localeCompare(categoryName, undefined, { sensitivity: 'base' }))) {
+      if (categoryName &&
+          !this.categories.find(c => c.name.toLowerCase() == categoryName.toLowerCase())) {
         this.form.categories.push({ name: categoryName });
 
         this.forceRender();
