@@ -9,12 +9,15 @@ export default new Vuex.Store({
     cart: {},
   },
   mutations: {
-    addProduct: (state, productId) => {
-
-      state.cart = Object.assign({}, state.cart, {
-        [productId]: state.cart[productId] + 1 || 1,
-      });
-      Cookies.set('cart', state.cart);
+    addProduct: (state, product) => {
+      if (state.cart[product.id] === product.quantity) {
+        alert("Cannot Add Product to Cart - Insufficient Stock");
+      } else {
+        state.cart = Object.assign({}, state.cart, {
+          [product.id]: state.cart[product.id] + 1 || 1,
+        });
+        Cookies.set('cart', state.cart);
+      }
     },
     removeProduct: (state, productId) => {
       const cartClone = Object.assign({}, state.cart);
