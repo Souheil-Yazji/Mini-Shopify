@@ -60,7 +60,10 @@
       />
     </div>
     <div id="filteredList">
-      <h4 id="searchKeyword">Search keyword: "{{keyword}}"</h4>
+      <h4
+          id="searchKeyword"
+          v-if="keyword.length > 0"
+      >Search keyword: "{{keyword}}"</h4>
       <div v-if="filteredShops.length < 1">
         No results found
       </div>
