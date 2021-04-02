@@ -81,7 +81,7 @@
                     class="card-button"
                     >Details</b-button
                   >
-                  <b-button href="#" variant="primary" class="card-button" @click="addProductToCart(product.id)"
+                  <b-button href="#" variant="primary" class="card-button" @click="addProductToCart(product)"
                     >Add to Cart</b-button
                   >
                 </b-card>
@@ -120,9 +120,8 @@ export default {
       // Redirect to Create Page Page
       this.$router.push(`/app/shops/${this.id}/products/create`);
     },
-    addProductToCart(id) {
-
-      this.$store.commit('addProduct', id);
+    addProductToCart(product) {
+      this.$store.commit('addProduct', product);
     }
   },
   props: ["id"],
