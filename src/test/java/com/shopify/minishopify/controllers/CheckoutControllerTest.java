@@ -1,13 +1,11 @@
 package com.shopify.minishopify.controllers;
 
 import com.shopify.minishopify.model.Product;
-import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.repository.CategoryRepository;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
 import com.shopify.minishopify.repository.TagRepository;
 import com.shopify.minishopify.viewmodel.Checkout;
-import com.shopify.minishopify.viewmodel.CheckoutList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,11 +19,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -82,6 +78,8 @@ public class CheckoutControllerTest {
                 .content(checkoutJsonBody.toString()))
                 .andDo(print())
                 .andExpect(status().isOk());
+
+        assertEquals(0, product1.getQuantity());
     }
 
     @Test
