@@ -12,7 +12,7 @@
                     @click="reload"
                 >Shop</b-nav-item>
                 <b-nav-item to="/app/shops/create">Create</b-nav-item>
-                <b-nav-item id="cartNav" to="/app/cart">Cart ({{ cartItems }})</b-nav-item>
+                <b-nav-item id="cartNav" to="/app/cart">Cart {{ cartItems }}</b-nav-item>
                 <b-form-input
                     @keyup.enter="submitSearch"
                     placeholder="Search"
@@ -61,7 +61,12 @@ export default {
   },
   computed: {
     cartItems: function() {
-      return Object.keys(this.$store.state.cart).length;
+      var cart_size = Object.keys(this.$store.state.cart).length;
+      if (cart_size == 0) {
+        return;
+      } else {
+        return '(' + Object.keys(this.$store.state.cart).length + ')';
+      }
     }
   }
 }
