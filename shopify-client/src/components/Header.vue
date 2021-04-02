@@ -7,7 +7,10 @@
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav class="mr-auto">
-                <b-nav-item to="/app/shops/list">Shop</b-nav-item>
+                <b-nav-item
+                    to="/app/shops/list"
+                    @click="reload"
+                >Shop</b-nav-item>
                 <b-nav-item to="/app/shops/create">Create</b-nav-item>
                 <b-nav-item id="cartNav" to="/app/cart">Cart {{ cartItems }}</b-nav-item>
                 <b-form-input
@@ -43,9 +46,18 @@ export default {
   methods:{
     submitSearch: function(){
       if(this.keyword){
+        let currRoute = this.$router.currentRoute.name;
         this.$router.push({name: 'ShopList', query:{keyword: this.keyword}});
+        if(currRoute === 'ShopList'){
+          this.$router.go(0);
+        }
       }
     },
+    reload: function(){
+      if (this.$router.currentRoute.name === 'ShopList'){
+        this.$router.go(0);
+      }
+    }
   },
   computed: {
     cartItems: function() {
