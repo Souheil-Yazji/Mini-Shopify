@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class CheckoutController {
     private ProductRepository productRepository;
 
     @PostMapping("/checkout")
+    @Transactional
     public ResponseEntity checkout(@RequestBody CheckoutList checkoutList) {
         float totalPrice = 0;
 
@@ -40,6 +42,8 @@ public class CheckoutController {
                 }
 
                 totalPrice += c.getQuantity() * p.getPrice();
+                p.setQuantity(p.getQuantity() - c.getQuantity());
+                productRepository.save(p);
             } else {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No product found with id: %d", c.getId()));
             }
