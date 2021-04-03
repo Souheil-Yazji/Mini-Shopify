@@ -72,8 +72,28 @@ public class ShopController {
         if(keyword != null){
             if(!keyword.equals("")) {
                 return shopRepository.search(keyword);
+                List<Shop> shops = shopRepository.search(keyword);
+                shops = findDupes(shops, shopRepository.searchThroughTag(keyword));
+                shops = findDupes(shops, shopRepository.searchThroughCategory(keyword));
+                return shops;
             }
         }
         return shopRepository.findAll();
+    }
+
+    /**
+     * Function to add shops from l2 that does not exist in l1
+     *
+     * @param l1 main shop list
+     * @param l2 list of shops to add
+     * @return resulting shop list
+     */
+    private List findDupes(List<Shop> l1, List<Shop> l2){
+        for(Shop s: l2){
+            if(!l1.contains(s)){
+                l1.add(s);
+            }
+        }
+        return l1;
     }
 }
