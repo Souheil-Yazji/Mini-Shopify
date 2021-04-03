@@ -71,7 +71,6 @@ public class ShopController {
     public List storeList(@RequestParam(name = "keyword", required = false) String keyword){
         if(keyword != null){
             if(!keyword.equals("")) {
-                return shopRepository.search(keyword);
                 List<Shop> shops = shopRepository.search(keyword);
                 shops = findDupes(shops, shopRepository.searchThroughTag(keyword));
                 shops = findDupes(shops, shopRepository.searchThroughCategory(keyword));
