@@ -70,7 +70,7 @@
           v-bind:key="'shop' + shop.id"
           v-bind:title="shop.name"
           v-bind:sub-title="shop.description"
-          v-bind:img-src="shop.image"
+          v-bind:img-src="'data:image/png;base64,' + shop.image"
           img-top
           class="shopTile mb-2"
       >
