@@ -27,7 +27,7 @@
           <p>{{ product.name }}</p>
         </b-col>
         <b-col>
-          <p>{{ product.quantity }}</p>
+          <p>{{ cart[product.id] }}</p>
         </b-col>
         <b-col>
           <p>${{ product.quantity * product.price }}</p>
@@ -132,7 +132,7 @@ export default {
           body: JSON.stringify({
             checkouts: this.products.map((p) => ({
               id: p.id,
-              quantity: p.quantity,
+              quantity: this.cart[p.id],
             })),
           }),
         }).then((response) => {
