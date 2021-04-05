@@ -93,7 +93,7 @@ public class ShopController {
      * @param l2 list of shops to add
      * @return resulting shop list
      */
-    private List findDupes(List<Shop> l1, List<Shop> l2){
+    public List findDupes(List<Shop> l1, List<Shop> l2){
         for(Shop s: l2){
             if(!l1.contains(s)){
                 l1.add(s);
