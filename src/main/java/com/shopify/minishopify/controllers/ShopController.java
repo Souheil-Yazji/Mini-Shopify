@@ -2,6 +2,7 @@ package com.shopify.minishopify.controllers;
 
 import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.repository.ShopRepository;
+import com.shopify.minishopify.util.ImageValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,11 @@ public class ShopController {
     @PostMapping("/create")
     public Shop createShop(@Valid @RequestBody Shop shop) {
         LOG.info("Created Shop {} for User {}", shop.getName(), shop.getOwner().getName());
+
+        if(!ImageValidator.isValidImage(shop.getImage())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Invalid image"));
+        }
+
         return shopRepository.save(shop);
     }
 
