@@ -119,7 +119,7 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(image);
 
-      reader.onload = () => handleDone(reader.result);
+      reader.onload = () => handleDone(reader.result.split(",")[1]);
     },
     onSubmit(event) {
       event.preventDefault();

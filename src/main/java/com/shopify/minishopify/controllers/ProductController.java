@@ -4,6 +4,8 @@ import com.shopify.minishopify.model.Product;
 import com.shopify.minishopify.model.Shop;
 import com.shopify.minishopify.repository.ProductRepository;
 import com.shopify.minishopify.repository.ShopRepository;
+import com.shopify.minishopify.util.ImageValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -59,6 +61,10 @@ public class ProductController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No shop found with id: %d", id));
         }
 
+        if(!ImageValidator.isValidImage(product.getImage())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Invalid image"));
+        }
+
         product.setShop(shop);
 
         return productRepository.save(product);
@@ -70,6 +76,11 @@ public class ProductController {
 
         if(optional.isPresent()) {
             Product product = optional.get();
+
+            if(!ImageValidator.isValidImage(updatedProduct.getImage())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Invalid image"));
+            }
+
             product.setImage(updatedProduct.getImage());
             product.setName(updatedProduct.getName());
             product.setPrice(updatedProduct.getPrice());

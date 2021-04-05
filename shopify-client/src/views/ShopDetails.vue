@@ -49,7 +49,7 @@
             </b-col>
             <b-col sm="6">
               <b-col sm="12">
-                <b-img id="shop-image" v-bind:src="shop.image"></b-img>
+                <b-img id="shop-image" v-bind:src="'data:image/png;base64,' + shop.image"></b-img>
               </b-col>
             </b-col>
           </b-row>
@@ -63,7 +63,7 @@
               <b-col v-for="product in shop.products" :key="product.name">
                 <b-card
                   v-bind:title="product.name"
-                  v-bind:img-src="product.image"
+                  v-bind:img-src="'data:image/png;base64,' + product.image"
                   v-bind:img-alt="product.name"
                   img-top
                   img-height="60%"
