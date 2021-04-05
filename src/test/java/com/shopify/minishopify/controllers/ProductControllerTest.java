@@ -56,7 +56,7 @@ public class ProductControllerTest {
     @BeforeAll
     public void initialize() throws JSONException {
         shop = new Shop();
-        product = new Product("product", "description", 1.0f, 1, "image");
+        product = new Product("product", "description", 1.0f, 1, "data:image/png;base64,image");
         product.setShop(shop);
 
         productJsonBody = new JSONObject();

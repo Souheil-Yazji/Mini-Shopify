@@ -63,8 +63,8 @@ public class ShopControllerTest {
     @BeforeAll
     public void initialize() throws Exception {
         shopOwner = new User("shop owner", "shopowner@email.com", "Password");
-        shop1 = new Shop(shopOwner, "Shop1", "Shop1 description", "image");
-        shop2 = new Shop(shopOwner, "Shop2", "Shop2 description", "image");
+        shop1 = new Shop(shopOwner, "Shop1", "Shop1 description", "data:image/png;base64,image");
+        shop2 = new Shop(shopOwner, "Shop2", "Shop2 description", "data:image/png;base64,image");
 
         ownerJsonBody = new JSONObject();
         ownerJsonBody.put("id", shopOwner.getId());
@@ -144,7 +144,7 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingUser = new JSONObject();
         requestBodyMissingUser.put("name", shop1.getName());
         requestBodyMissingUser.put("description", shop1.getDescription());
-        requestBodyMissingUser.put("image", shop1.getImage());
+        requestBodyMissingUser.put("data:image/png;base64,image", shop1.getImage());
 
         when(shopRepository.save(any())).thenReturn(shop1);
 
@@ -158,7 +158,7 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingName = new JSONObject();
         requestBodyMissingName.put("owner", ownerJsonBody);
         requestBodyMissingName.put("description", shop1.getDescription());
-        requestBodyMissingName.put("image", shop1.getImage());
+        requestBodyMissingName.put("data:image/png;base64,image", shop1.getImage());
 
         mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -170,7 +170,7 @@ public class ShopControllerTest {
         JSONObject requestBodyMissingDescription = new JSONObject();
         requestBodyMissingDescription.put("name", shop1.getName());
         requestBodyMissingDescription.put("owner", ownerJsonBody);
-        requestBodyMissingDescription.put("image", shop1.getImage());
+        requestBodyMissingDescription.put("data:image/png;base64,image", shop1.getImage());
 
         mvc.perform(post("/api/shops/create")
                 .contentType(MediaType.APPLICATION_JSON)
