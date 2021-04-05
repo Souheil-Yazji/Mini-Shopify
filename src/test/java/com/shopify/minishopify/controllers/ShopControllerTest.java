@@ -19,9 +19,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.when;
@@ -47,8 +50,11 @@ public class ShopControllerTest {
     @MockBean
     private TagRepository tagRepository;
 
+    private ShopController shopController;
+
     // test objects
     private Shop shop1;
+    private Shop shop2;
     private User shopOwner;
     private JSONObject ownerJsonBody;
     private JSONObject shopJsonBody;
@@ -58,6 +64,7 @@ public class ShopControllerTest {
     public void initialize() throws Exception {
         shopOwner = new User("shop owner", "shopowner@email.com", "Password");
         shop1 = new Shop(shopOwner, "Shop1", "Shop1 description", "image");
+        shop2 = new Shop(shopOwner, "Shop2", "Shop2 description", "image");
 
         ownerJsonBody = new JSONObject();
         ownerJsonBody.put("id", shopOwner.getId());
@@ -203,5 +210,25 @@ public class ShopControllerTest {
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void whenMergingShopLists_thenReturnCombineList(){
+        List<Shop> shopList1 = new ArrayList();
+        List<Shop> shopList2 = new ArrayList();
+        shopController = new ShopController();
+
+        //Expect empty list
+        assertTrue("Should be empty", shopController.findDupes(shopList1, shopList2).size() == 0);
+
+        //Expect one object
+        shopList1.add(shop1);
+        assertTrue("Should have one shop", shopController.findDupes(shopList1, shopList2).size() == 1);
+        shopList2.add(shop1);
+        assertTrue("Should have one shop", shopController.findDupes(shopList1, shopList2).size() == 1);
+
+        //Expect two object
+        shopList2.add(shop2);
+        assertTrue("Should have two shops", shopController.findDupes(shopList1, shopList2).size() == 2);
     }
 }
