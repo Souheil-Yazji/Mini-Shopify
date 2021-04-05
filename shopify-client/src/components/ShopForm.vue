@@ -274,7 +274,6 @@ export default {
 
       try {
         this.encode(this.form.image, (image) => {
-          console.log(image)
           this.handleSubmit({ ...this.form, image: image }, (response) => {
             if ((response.status && response.status != 200) || !response.id) {
               this.error = response;
