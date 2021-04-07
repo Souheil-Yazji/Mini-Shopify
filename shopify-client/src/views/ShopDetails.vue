@@ -59,8 +59,12 @@
         <b-container id="productCatalog" ref="productCatalog">
           <h2>Product Catalog</h2>
           <div v-if="shop.products.length">
+            <b-form-group>
+              <b-form-input v-model="keyword" placeholder="Search product"></b-form-input>
+            </b-form-group>
             <b-row cols="4">
-              <b-col v-for="product in shop.products" :key="product.name">
+              <b-col v-for="product in shop.products.filter(p =>
+                        !keyword|| p.name.toLowerCase().includes(keyword.toLowerCase()))" :key="product.name">
                 <b-card
                   v-bind:title="product.name"
                   v-bind:img-src="product.image"
@@ -102,6 +106,7 @@ export default {
     return {
       shop: null,
       error: "",
+      keyword: "",
     };
   },
   methods: {
