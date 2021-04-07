@@ -29,8 +29,6 @@
               <!-- Right aligned nav items -->
               <b-navbar-nav class="ml-auto">
                 <b-nav-item to="/app/about">About</b-nav-item>
-                <b-nav-item to="/app/login">Login</b-nav-item>
-                <b-nav-item to="/app/signup">Sign Up</b-nav-item>
               </b-navbar-nav>
             </b-collapse>
           </b-col>
