@@ -47,10 +47,6 @@ public class ShopController {
     public Shop createShop(@Valid @RequestBody Shop shop) {
         LOG.info("Created Shop {} for User {}", shop.getName(), shop.getOwner().getName());
 
-        if(!ImageValidator.isValidImage(shop.getImage())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Invalid image"));
-        }
-
         return shopRepository.save(shop);
     }
 
@@ -60,11 +56,16 @@ public class ShopController {
         Optional<Shop> shopQuery = shopRepository.findById(id);
 
         if (shopQuery.isPresent()) {
+            if(!ImageValidator.isValidImage(updatedShop.getImage())) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Invalid image"));
+            }
+
             Shop shop = shopQuery.get();
             shop.setName(updatedShop.getName());
             shop.setDescription(updatedShop.getDescription());
             shop.setCategories(updatedShop.getCategories());
             shop.setTags(updatedShop.getTags());
+            shop.setImage(updatedShop.getImage());
 
             LOG.info("Updated Shop id:{} for User {}", shop.getId(), shop.getOwner().getName());
             return shopRepository.save(shop);
