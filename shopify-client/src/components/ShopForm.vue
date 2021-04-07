@@ -266,7 +266,7 @@ export default {
       const reader = new FileReader();
       reader.readAsDataURL(image);
 
-      reader.onload = () => handleDone(reader.result.split(",")[1]);
+      reader.onload = () => handleDone(reader.result);
     },
 
     onSubmit(event) {
