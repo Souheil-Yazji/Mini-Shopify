@@ -2,40 +2,70 @@
   <div id="about">
     <h1>
       <div id="Logo">
-        <img alt="Vue logo" src="../assets/logo.png">
-        <p>Powered by Vue.Js</p>
+        <img alt="MiniShopify logo" src="../assets/MiniShopLogo.png">
       </div>
     </h1>
-    <h3>Installed CLI Plugins</h3>
+    <h3>About Us</h3>
+    <div>
+      <p>We are a group of 5 Software Engineering Students that have designed and implemented this system for SYSC 4806
+        at Carleton University.</p>
+      <p>This system allows merchants to create a new shop by filling in a form containing the name of the shop and the
+        categories/tags relevant to the shop. The merchant can upload products to populate the shop along with a
+        description, picture, and inventory number. Customers can find a shop by looking up the name of the shop or
+        searching by category/tag. Once they find the shop the want, they can browse through the product catalog of the
+        shop, and can then decide to purchase one or many products by putting them in the Shopping Cart and proceeding
+        to Checkout.</p>
+      <p>The purchase is only simulated. This system is not meant to host real stores and is presented "as is".</p>
+    </div>
+    <h3>Statistics</h3>
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank"
-             rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank"
-             rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank"
-             rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank"
-             rel="noopener">eslint</a></li>
+      <p>We host:</p>
+      <li>{{ numShops }} Shops</li>
+      <li>{{ numProducts }} Products</li>
+      <li>{{ numUsers }} Merchants</li>
     </ul>
-    <h3>Essential Links</h3>
+    <h3>Authors</h3>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+      <li>Hoang Bui</li>
+      <li>Michael Fan</li>
+      <li>Derek Shao</li>
+      <li>David Wang</li>
+      <li>Souheil Yazji</li>
     </ul>
-    <h3>Ecosystem</h3>
     <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a>
-      </li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+      <p>Powered by Vue.Js</p>
     </ul>
   </div>
 </template>
+
+<script>
+  export default {
+    name: "About",
+    data: function() {
+        return {
+            numShops: 0,
+            numProducts: 0,
+            numUsers: 0,
+        };
+    },
+    created: function() {
+      fetch(`/api/stats`)
+      .then((response) => response.json())
+      .then((response) => {
+          if (response.status == 404) {
+            throw new Error(response.message);
+          }
+
+          return response;
+      })
+      .then((data) => {
+          this.numShops = data.numShops;
+          this.numProducts = data.numProducts;
+          this.numUsers = data.numUsers;
+      });
+    },
+  };
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
