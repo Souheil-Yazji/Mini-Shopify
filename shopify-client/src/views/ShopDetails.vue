@@ -46,6 +46,11 @@
                   Add Product
                 </b-button>
               </b-col>
+              <b-col sm="12">
+                <b-button v-on:click="deleteShop()" variant="danger">
+                  Delete Shop
+                </b-button>
+              </b-col>
             </b-col>
             <b-col sm="6">
               <b-col sm="12">
@@ -127,6 +132,44 @@ export default {
     },
     addProductToCart(product) {
       this.$store.commit('addProduct', product);
+    },
+    deleteShop() {
+
+      this.$bvModal.msgBoxConfirm(`Are you sure you wish to delete shop: ${this.shop.name}`, {
+                title: 'Delete Shop Confirmation',
+                size: 'sm',
+                buttonSize: 'sm',
+                okVariant: 'danger',
+                okTitle: 'YES',
+                cancelTitle: 'NO',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true
+              })
+              .then(deleteConfirmed => {
+
+                if (deleteConfirmed) {
+                  fetch(`/api/shops/delete/${this.id}`, {
+                      method: "DELETE",
+                  })
+                    .then((response) => response.json())
+                    .then((response) => {
+                      if (response.status == 404) {
+                        throw new Error(response.message);
+                      }
+
+                      // remove the deleted shop's products from shopping cart
+                      response.products.forEach((product) => {
+                        this.$store.commit('removeProduct', product.id);
+                      });
+
+                      this.$router.push(`/app/shops/list`);
+                    })
+                }
+              })
+              .catch(err => {
+                this.error = err;
+              });
     }
   },
   props: ["id"],

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -230,5 +231,19 @@ public class ShopControllerTest {
         //Expect two object
         shopList2.add(shop2);
         assertTrue("Should have two shops", shopController.findDupes(shopList1, shopList2).size() == 2);
+    }
+
+    @Test
+    public void whenDeletingShop_thenReturnShop() throws Exception {
+
+        doNothing().when(shopRepository).delete(any());
+        when(shopRepository.findById(1)).thenReturn(Optional.of(shop1));
+
+        mvc.perform(delete("/api/shops/delete/1"))
+                .andDo(print())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(shop1.getName()))
+                .andExpect(jsonPath("$.description").value(shop1.getDescription()));
     }
 }
