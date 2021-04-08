@@ -141,6 +141,11 @@ public class Shop {
         products.add(product);
     }
 
+    public void removeProduct(Product product) {
+        product.setShop(null);
+        products.remove(product);
+    }
+
     public void addTag(Tag tag) {
         tags.add(tag);
     }

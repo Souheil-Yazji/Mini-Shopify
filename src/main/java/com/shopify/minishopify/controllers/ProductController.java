@@ -94,11 +94,11 @@ public class ProductController {
 
     @DeleteMapping("/products/delete/{id}")
     public Product deleteProductById(@PathVariable int id) {
-        Product product = null;
         Optional<Product> optional = productRepository.findById(id);
 
         if(optional.isPresent()) {
-            product = optional.get();
+            Product product = optional.get();
+            product.getShop().removeProduct(product);
             productRepository.deleteById(product.getId());
 
             return product;
