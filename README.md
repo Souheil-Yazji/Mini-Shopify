@@ -12,7 +12,7 @@ This project aims to create a platform, inspired by shopify, which allows signed
 1. FrontEnd: Vue.JS + BootstrapVue
 2. Backend: Spring with REST endpoints
 3. Database: PostgreSQL 
-### [Travis-CI](https://travis-ci.com/github/mpfan/Mini-Shopify)
+### [Travis-CI](https://travis-ci.com/github/Souheil-Yazji/Mini-Shopify)
 ### [Heroku App](https://sh0p1fy.herokuapp.com/)
 <br /> 
 
