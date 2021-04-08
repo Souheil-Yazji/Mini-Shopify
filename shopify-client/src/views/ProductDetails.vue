@@ -34,8 +34,13 @@
                 <b-button
                   v-bind:to="'/app/shops/' + shopId + '/products/update/' + id"
                   variant="primary"
-                  >Update</b-button
-                >
+                >Update</b-button>
+              </b-col>
+              <b-col sm="12">
+                <b-button
+                  variant="danger"
+                  v-on:click = "deleteProduct()"
+                >Delete</b-button>
               </b-col>
             </b-row>
           </b-col>
@@ -73,6 +78,17 @@ export default {
   },
   methods: {
     shopDetails() {
+      this.$router.push(`/app/shops/${this.shopId}`);
+    },
+
+    deleteProduct() {
+      this.$store.commit('removeProduct', this.id);
+
+      fetch(`/api/products/delete/${this.id}`, {
+        method: "DELETE"
+      });
+
+      // Navigate to the shop detail page
       this.$router.push(`/app/shops/${this.shopId}`);
     },
   },

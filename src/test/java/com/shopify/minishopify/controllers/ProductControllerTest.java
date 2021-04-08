@@ -19,7 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -135,5 +138,17 @@ public class ProductControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(product.getName()));
+    }
+
+    @Test
+    public void whenDeleteNewProduct_thenRemoveFromShopAndDelete() throws Exception {
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
+
+        mvc.perform(delete("/api/products/delete/" + product.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(product.getName()));
+        assertFalse(shop.getProducts().contains(product));
+        assertNotEquals(shop, product.getShop());
+        verify(productRepository).deleteById(product.getId());
     }
 }

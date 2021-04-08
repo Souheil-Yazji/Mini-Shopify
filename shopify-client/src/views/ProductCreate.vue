@@ -63,7 +63,7 @@ export default {
 }
 
 .center {
-  margin-left: 500px;
-  margin-right: 500px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 </style>
