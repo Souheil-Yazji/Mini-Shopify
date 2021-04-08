@@ -165,9 +165,6 @@ export default {
 
                       this.$router.push(`/app/shops/list`);
                     })
-                    .catch((error) => {
-                      this.error = error;
-                    });
                 }
               })
               .catch(err => {
