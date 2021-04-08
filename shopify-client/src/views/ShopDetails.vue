@@ -153,7 +153,16 @@ export default {
                       method: "DELETE",
                   })
                     .then((response) => response.json())
-                    .then(() => {
+                    .then((response) => {
+                      if (response.status == 404) {
+                        throw new Error(response.message);
+                      }
+
+                      // remove the deleted shop's products from shopping cart
+                      response.products.forEach((product) => {
+                        this.$store.commit('removeProduct', product.id);
+                      });
+
                       this.$router.push(`/app/shops/list`);
                     })
                     .catch((error) => {

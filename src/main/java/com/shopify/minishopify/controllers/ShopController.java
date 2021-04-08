@@ -109,10 +109,9 @@ public class ShopController {
         Optional<Shop> shopQuery = shopRepository.findById(id);
 
         if (shopQuery.isPresent()) {
-            LOG.info("Found shop to delete");
 
             Shop shopToDelete = shopQuery.get();
-            shopRepository.deleteById(id);
+            shopRepository.delete(shopToDelete);
 
             return shopToDelete;
         } else {
