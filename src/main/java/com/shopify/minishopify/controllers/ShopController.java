@@ -102,4 +102,21 @@ public class ShopController {
         }
         return l1;
     }
+
+    @DeleteMapping("/delete/{id}")
+    public Shop deleteShop(@PathVariable int id) {
+
+        Optional<Shop> shopQuery = shopRepository.findById(id);
+
+        if (shopQuery.isPresent()) {
+            LOG.info("Found shop to delete");
+
+            Shop shopToDelete = shopQuery.get();
+            shopRepository.deleteById(id);
+
+            return shopToDelete;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("No shop found with id: %d", id));
+        }
+    }
 }
