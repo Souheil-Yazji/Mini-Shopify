@@ -13,7 +13,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer> {
      * @param keyword string that will be used for query
      * @return A List of shops with keyword in their name or description
      */
-    @Query("SELECT s FROM Shop s WHERE CONCAT(s.name, ' ', s.description) LIKE %?1%")
+    @Query("SELECT s FROM Shop s WHERE lower(CONCAT(s.name, ' ', s.description)) LIKE %?1%")
     List<Shop> search(String keyword);
 
     /**
@@ -22,7 +22,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer> {
      * @param keyword string that will be used for query
      * @return A List of shops with keyword in their tags
      */
-    @Query("SELECT DISTINCT s FROM Shop s JOIN s.tags t WHERE t.name LIKE %?1%")
+    @Query("SELECT DISTINCT s FROM Shop s JOIN s.tags t WHERE lower(t.name) LIKE %?1%")
     List<Shop> searchThroughTag(String keyword);
 
     /**
@@ -31,7 +31,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer> {
      * @param keyword string that will be used for query
      * @return A List of shops with keyword in their categories
      */
-    @Query("SELECT DISTINCT s FROM Shop s JOIN s.categories c WHERE c.name LIKE %?1%")
+    @Query("SELECT DISTINCT s FROM Shop s JOIN s.categories c WHERE lower(c.name) LIKE %?1%")
     List<Shop> searchThroughCategory(String keyword);
 
 }
