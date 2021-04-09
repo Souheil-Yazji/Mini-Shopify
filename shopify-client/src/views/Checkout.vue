@@ -30,7 +30,7 @@
           <p>{{ cart[product.id] }}</p>
         </b-col>
         <b-col>
-          <p>${{ product.quantity * product.price }}</p>
+          <p>${{ cart[product.id] * product.price }}</p>
         </b-col>
       </b-row>
       <b-row class="border-top">
@@ -175,7 +175,7 @@ export default {
     },
     getTotalPrice() {
       return this.products.reduce(
-        (acc, cur) => acc + cur.quantity * cur.price,
+        (acc, cur) => acc + this.cart[cur.id] * cur.price,
         0
       );
     },
